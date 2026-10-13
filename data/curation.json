@@ -5,6 +5,22 @@
     "Dimkin33"
   ],
   "site_repository": "Dmitry-dev-pet/dmitry-dev-pet.github.io",
+  "published_repositories": [
+    "Dmitry-dev-pet/truthrail-core",
+    "Dmitry-dev-pet/truthrail-starter",
+    "Dmitry-dev-pet/mermaid-compiler",
+    "Dmitry-dev-pet/rubik-graph-lab",
+    "Dmitry-dev-pet/rulers-chronology-audit",
+    "Dmitry-dev-pet/coimbra-video",
+    "Dmitry-dev-pet/apatch-blender",
+    "Dmitry-dev-pet/time-receiver",
+    "Dmitry-dev-pet/native-audio-translator",
+    "Dmitry-dev-pet/form-field-lab",
+    "Dmitry-dev-pet/ai-agent-case-studies",
+    "Dmitry-dev-pet/dodo-table-events",
+    "Dmitry-dev-pet/hotwills",
+    "Dmitry-dev-pet/feynman-reader"
+  ],
   "excluded_repositories": [
     "Dimkin33/FeOHxyz",
     "Dimkin33/FeOH_analize",
@@ -119,14 +135,13 @@
     "Dmitry-dev-pet/form-field-lab": {
       "category": "visual",
       "summary_en": "A generative-art laboratory combining p5.js sketches with exploratory procedural forms and 3D creatures.",
-      "summary_ru": "Лаборатория генеративной графики: p5.js-скетчи, процедурные формы и трёхмерные существа.",
+      "summary_ru": "Интерактивная лаборатория генеративной графики на p5.js: процедурные формы, эволюция изображений и эксперименты с кодом.",
       "title_en": "Form / Field",
       "tags": [
         "Vue",
         "p5.js",
         "Generative Art"
-      ],
-      "featured_order": 7
+      ]
     },
     "Dmitry-dev-pet/native-audio-translator": {
       "category": "tools",
@@ -154,8 +169,8 @@
     },
     "Dmitry-dev-pet/hotwills": {
       "category": "tools",
-      "summary_en": "Collaborative catalog with static frontend, Supabase authentication, data editing and analytics.",
-      "summary_ru": "Совместный каталог на статическом фронтенде с авторизацией Supabase, редактированием и статистикой.",
+      "summary_en": "Browser-based collaborative catalog with an editor, statistics, infographics and optional cloud sync.",
+      "summary_ru": "Интерактивный каталог с редактором, статистикой, инфографикой и синхронизацией через Supabase.",
       "title_en": "Hotwills Catalog"
     },
     "Dmitry-dev-pet/viselitsa-web": {
@@ -173,8 +188,8 @@
     },
     "Dmitry-dev-pet/feynman-reader": {
       "category": "science",
-      "summary_en": "Static reader package for studying the Feynman Lectures and related material.",
-      "summary_ru": "Статический читательский интерфейс для работы с лекциями Фейнмана.",
+      "summary_en": "Interactive bilingual reader for three volumes of The Feynman Lectures, with formulas, illustrations and accompanying study media.",
+      "summary_ru": "Интерактивный читатель трёх томов «Фейнмановских лекций по физике»: формулы, иллюстрации, русская и английская навигация, учебные материалы.",
       "title_en": "Feynman Reader"
     },
     "Dmitry-dev-pet/physics-intern-hobby-controller": {
@@ -214,9 +229,18 @@
       "summary_ru": "Репозиторий программного эксперимента."
     },
     "Dmitry-dev-pet/time-receiver": {
-      "category": "science",
-      "summary_en": "Experimental time-receiver project; implementation notes are in the repository.",
-      "summary_ru": "Экспериментальный проект приёмника времени; подробности в репозитории."
+      "category": "research",
+      "summary_en": "Explore reconstructed Soviet radio and television schedules (1940–1990) with a vintage receiver, historic dates, stations and programme guides.",
+      "summary_ru": "Интерактивная реконструкция советского радио- и телеэфира: выбирайте дату, настраивайте виртуальный приёмник и изучайте программы передач 1940–1990 годов.",
+      "title_en": "Time Receiver",
+      "title_ru": "Радио и телевидение прошлого",
+      "demo": "https://dmitry-dev-pet.github.io/time-receiver/",
+      "tags": [
+        "Radio",
+        "History",
+        "Interactive"
+      ],
+      "featured_order": 7
     },
     "Dimkin33/FeOHxyz": {
       "category": "science",

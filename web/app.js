@@ -12,14 +12,14 @@
       featuredEyebrow: 'A closer look', featuredTitle: 'Selected projects<span class="period">.</span>',
       featuredIntro: 'Some experiments grow into tools. Others remain open questions. These are the stories worth opening first.',
       catalogEyebrow: 'The whole workspace', catalogTitle: 'Explore everything<span class="period">.</span>',
-      catalogIntro: 'A living index of public repositories from two GitHub accounts. Updated automatically; curated for humans.',
-      showSupport: 'Include supporting repositories and archives', noResults: 'No projects match this search. Try another category or keyword.',
+      catalogIntro: 'A hand-picked collection of research and software projects. Metadata refreshes automatically; new work appears only after review.',
+      noResults: 'No projects match this search. Try another category or keyword.',
       aboutEyebrow: 'The person behind the work', aboutTitle: 'Science-minded.<br><em>Build-oriented.</em>',
       aboutText: "I'm Dmitry, an engineer and researcher based in Coimbra, Portugal. My background in computational physics shapes how I build software: make assumptions explicit, test ideas, and keep results reproducible.",
       aboutCV: 'CV & experience', backToTop: 'Back to top ↑',
       all: 'All', agents: 'AI & Agents', science: 'Science', visual: 'Visualization', tools: 'Developer tools', experiments: 'Experiments', research: 'Research',
       demo: 'Live demo ↗', video: 'Watch video ↗', source: 'Source ↗', repo: 'GitHub ↗',
-      results: (n) => `${n} ${n === 1 ? 'project' : 'projects'}`, synced: (date, count) => `${count} public repos · synced ${date}`, snapshot: (date, count) => `${count} public repos · snapshot ${date}`,
+      results: (n) => `${n} ${n === 1 ? 'project' : 'projects'}`, synced: (date, count) => `${count} curated public repos · synced ${date}`, snapshot: (date, count) => `${count} curated public repos · snapshot ${date}`,
       search: 'Search projects…', loading: 'Loading projects…', loadError: 'Unable to load the catalog. Refresh the page or open the GitHub profiles.',
       archived: 'Archived', support: 'Supporting repo', fork: 'Fork', more: 'Related code', noDescription: 'Public repository — open the source to explore the implementation.', licenseNote: 'Public code does not always come with an open-source license. Check each repository’s license before reusing its code.'
     },
@@ -33,14 +33,14 @@
       featuredEyebrow: 'Стоит рассмотреть', featuredTitle: 'Избранные проекты<span class="period">.</span>',
       featuredIntro: 'Некоторые эксперименты становятся инструментами. Другие остаются открытыми вопросами. Начать можно с этих.',
       catalogEyebrow: 'Вся коллекция', catalogTitle: 'Все проекты<span class="period">.</span>',
-      catalogIntro: 'Живой каталог публичных репозиториев из двух GitHub-аккаунтов. Обновляется автоматически и редактируется вручную.',
-      showSupport: 'Показать служебные и архивные репозитории', noResults: 'Ничего не найдено. Попробуйте другой запрос или категорию.',
+      catalogIntro: 'Отобранные исследовательские и программные проекты. Данные обновляются автоматически, новые работы публикуются после отбора.',
+      noResults: 'Ничего не найдено. Попробуйте другой запрос или категорию.',
       aboutEyebrow: 'Об авторе', aboutTitle: 'Научный подход.<br><em>Инженерная практика.</em>',
       aboutText: 'Я Дмитрий, инженер и исследователь из Коимбры, Португалия. Опыт в вычислительной физике определяет мой подход к программированию: явно формулировать предположения, проверять идеи и делать результаты воспроизводимыми.',
       aboutCV: 'Резюме и опыт', backToTop: 'Наверх ↑',
       all: 'Все', agents: 'AI и агенты', science: 'Наука', visual: 'Визуализация', tools: 'Инструменты', experiments: 'Эксперименты', research: 'Исследования',
       demo: 'Открыть демо ↗', video: 'Смотреть видео ↗', source: 'Исходники ↗', repo: 'GitHub ↗',
-      results: (n) => `${n} ${plural(n, 'проект', 'проекта', 'проектов')}`, synced: (date, count) => `${count} публичных репозиториев · обновлено ${date}`, snapshot: (date, count) => `${count} публичных репозиториев · снимок ${date}`,
+      results: (n) => `${n} ${plural(n, 'проект', 'проекта', 'проектов')}`, synced: (date, count) => `${count} отобранных репозиториев · обновлено ${date}`, snapshot: (date, count) => `${count} отобранных репозиториев · снимок ${date}`,
       search: 'Поиск проектов…', loading: 'Загружаю проекты…', loadError: 'Не удалось загрузить каталог. Обновите страницу или откройте профили GitHub.',
       archived: 'Архив', support: 'Служебный', fork: 'Форк', more: 'Связанный код', noDescription: 'Публичный репозиторий — подробности доступны в исходном коде.', licenseNote: 'Публичный код не всегда имеет открытую лицензию. Перед использованием проверьте лицензию каждого репозитория.'
     }
@@ -52,7 +52,7 @@
   function categoryName(cat) { return labels[state.lang][cat] || labels[state.lang].experiments; }
   function projectDescription(p) { return localize(p, 'summary', state.lang) || p.description || labels[state.lang].noDescription; }
   function projectName(p) { return localize(p, 'title', state.lang) || p.name || p.full_name.split('/').pop().replace(/[-_]/g, ' '); }
-  const state = { projects: [], totalRepositories: 0, synced: null, syncSource: 'snapshot', lang: 'en', filter: 'all', search: '', showSupport: false };
+  const state = { projects: [], totalRepositories: 0, synced: null, syncSource: 'snapshot', lang: 'en', filter: 'all', search: '' };
   const params = new URLSearchParams(location.search);
   const stored = (() => { try { return localStorage.getItem('portfolio-language'); } catch { return null; } })();
   state.lang = params.get('lang') === 'ru' ? 'ru' : params.get('lang') === 'en' ? 'en' : stored === 'ru' ? 'ru' : 'en';
@@ -108,7 +108,6 @@
     const normalized = state.search.trim().toLocaleLowerCase();
     return state.projects.filter(p => {
       if (p.hidden) return false;
-      if ((p.support || p.archived) && !state.showSupport) return false;
       if (state.filter !== 'all' && p.category !== state.filter) return false;
       if (!normalized) return true;
       const haystack = [p.full_name, p.name, p.description, p.language, p.category, p.summary_en, p.summary_ru, p.title_en, p.title_ru, ...(p.tags || []), ...(p.topics || [])].filter(Boolean).join(' ').toLocaleLowerCase();
@@ -156,7 +155,6 @@
   }
   $('#language-toggle').addEventListener('click', () => setLanguage(state.lang === 'en' ? 'ru' : 'en'));
   $('#project-search').addEventListener('input', event => { state.search = event.target.value; render(); });
-  $('#include-support').addEventListener('change', event => { state.showSupport = event.target.checked; render(); });
   setLanguage(state.lang, false);
   loadCatalog();
 })();
