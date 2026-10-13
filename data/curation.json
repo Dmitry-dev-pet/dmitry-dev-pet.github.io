@@ -1,0 +1,283 @@
+{
+  "schema_version": 1,
+  "owners": [
+    "Dmitry-dev-pet",
+    "Dimkin33"
+  ],
+  "site_repository": "Dmitry-dev-pet/dmitry-dev-pet.github.io",
+  "projects": {
+    "Dmitry-dev-pet/truthrail-core": {
+      "category": "agents",
+      "summary_en": "One source of truth for AI work across chats. Keep project state in GitHub, not in a single conversation.",
+      "summary_ru": "Единый источник истины для AI-проектов. Состояние хранится в GitHub и доступно между чатами.",
+      "title_en": "Truthrail",
+      "tags": [
+        "GitHub",
+        "Agents",
+        "Protocols"
+      ],
+      "featured_order": 1,
+      "family": "truthrail",
+      "primary": true
+    },
+    "Dmitry-dev-pet/truthrail-starter": {
+      "category": "agents",
+      "summary_en": "Template for creating a private, durable Truthrail instance.",
+      "summary_ru": "Шаблон приватной постоянной конфигурации Truthrail.",
+      "title_en": "Truthrail Starter",
+      "family": "truthrail",
+      "support": true
+    },
+    "Dmitry-dev-pet/mermaid-compiler": {
+      "category": "tools",
+      "summary_en": "A local-first workspace to create, edit and validate Mermaid diagrams, with optional AI and repair loops.",
+      "summary_ru": "Локальный редактор диаграмм Mermaid с проверкой синтаксиса, AI и циклом исправления ошибок.",
+      "title_en": "Mermaid Compiler",
+      "demo": "https://mermaid-compiler-hrt94ln5k-dmitrys-projects-60af16a7.vercel.app/",
+      "tags": [
+        "React",
+        "Mermaid",
+        "TypeScript"
+      ],
+      "featured_order": 2
+    },
+    "Dmitry-dev-pet/rubik-graph-lab": {
+      "category": "science",
+      "summary_en": "One exact Rubik’s Cube state, four views: 3D, one circle, three rings, and nine rings.",
+      "summary_ru": "Одно точное состояние кубика Рубика в четырёх представлениях: 3D, одна окружность, три и девять колец.",
+      "title_en": "Rubik Graph Lab",
+      "demo": "https://rubik-graph-lab.vercel.app/",
+      "tags": [
+        "Three.js",
+        "Mathematics",
+        "WebGL"
+      ],
+      "featured_order": 3
+    },
+    "Dmitry-dev-pet/rulers-chronology-audit": {
+      "category": "research",
+      "summary_en": "Interactive chronology of rulers, states and dynasties, with sources, coverage gaps and historical timelines.",
+      "summary_ru": "Интерактивная хронология правителей, государств и династий с источниками и картой пробелов данных.",
+      "title_en": "Rulers Chronology",
+      "demo": "https://dmitry-dev-pet.github.io/rulers-chronology-audit/",
+      "tags": [
+        "History",
+        "Data",
+        "Interactive"
+      ],
+      "featured_order": 4
+    },
+    "Dmitry-dev-pet/coimbra-video": {
+      "category": "visual",
+      "summary_en": "Cinematic flyovers of Coimbra built from reproducible 3D city scenes and controlled camera paths.",
+      "summary_ru": "Кинематографические пролёты над Коимброй на основе воспроизводимой 3D-сцены города.",
+      "title_en": "Coimbra 3D Flyover",
+      "demo": "https://youtu.be/ou7x35MhRSQ",
+      "tags": [
+        "Blender",
+        "3D",
+        "Geodata"
+      ],
+      "demo_kind": "video",
+      "featured_order": 5
+    },
+    "Dmitry-dev-pet/apatch-blender": {
+      "category": "tools",
+      "summary_en": "Contract-governed Blender automation: bounded AI operations and independent checks for unauthorized scene changes.",
+      "summary_ru": "Управление Blender по контрактам с независимой проверкой того, что изменены только разрешённые объекты.",
+      "title_en": "APatch Blender",
+      "tags": [
+        "Blender",
+        "Python",
+        "Contracts"
+      ],
+      "featured_order": 6,
+      "family": "apatch",
+      "primary": true
+    },
+    "Dmitry-dev-pet/apatch-blender-demo": {
+      "category": "visual",
+      "summary_en": "Archived visual demonstration of the APatch Blender workflow.",
+      "summary_ru": "Архивная визуальная демонстрация APatch Blender.",
+      "title_en": "APatch Blender Demo",
+      "family": "apatch",
+      "support": true
+    },
+    "Dmitry-dev-pet/form-field-lab": {
+      "category": "visual",
+      "summary_en": "A generative-art laboratory combining p5.js sketches with exploratory procedural forms and 3D creatures.",
+      "summary_ru": "Лаборатория генеративной графики: p5.js-скетчи, процедурные формы и трёхмерные существа.",
+      "title_en": "Form / Field",
+      "tags": [
+        "Vue",
+        "p5.js",
+        "Generative Art"
+      ],
+      "featured_order": 7
+    },
+    "Dmitry-dev-pet/native-audio-translator": {
+      "category": "tools",
+      "summary_en": "Native macOS prototype for live subtitles and translation from system audio or text on screen.",
+      "summary_ru": "Нативный прототип для macOS: субтитры и перевод системного звука и текста на экране.",
+      "title_en": "Native Audio Translator",
+      "tags": [
+        "Swift",
+        "macOS",
+        "OCR"
+      ],
+      "featured_order": 8
+    },
+    "Dmitry-dev-pet/ai-agent-case-studies": {
+      "category": "agents",
+      "summary_en": "Public case studies of private AI systems: chat ingestion, SQLite pipelines, LLM stages and observability.",
+      "summary_ru": "Открытые разборы архитектуры частных AI-проектов: импорт чатов, SQLite, LLM-пайплайны, диагностика.",
+      "title_en": "AI Agent Case Studies"
+    },
+    "Dmitry-dev-pet/dodo-table-events": {
+      "category": "tools",
+      "summary_en": "Computer vision prototype that detects occupied and empty tables using object detection and temporal logic.",
+      "summary_ru": "Прототип компьютерного зрения для определения занятости столиков по видео.",
+      "title_en": "Dodo Table Events"
+    },
+    "Dmitry-dev-pet/hotwills": {
+      "category": "tools",
+      "summary_en": "Collaborative catalog with static frontend, Supabase authentication, data editing and analytics.",
+      "summary_ru": "Совместный каталог на статическом фронтенде с авторизацией Supabase, редактированием и статистикой.",
+      "title_en": "Hotwills Catalog"
+    },
+    "Dmitry-dev-pet/viselitsa-web": {
+      "category": "visual",
+      "summary_en": "A browser-based Hangman word game.",
+      "summary_ru": "Браузерная игра «Виселица».",
+      "title_en": "Hangman Web",
+      "demo": "https://dmitry-dev-pet.github.io/viselitsa-web/"
+    },
+    "Dmitry-dev-pet/cloud-file-storage": {
+      "category": "tools",
+      "summary_en": "Educational file-storage backend developed in testable stages with Django REST Framework.",
+      "summary_ru": "Учебный backend для хранения файлов на Django REST Framework, развиваемый проверяемыми этапами.",
+      "title_en": "Cloud File Storage"
+    },
+    "Dmitry-dev-pet/feynman-reader": {
+      "category": "science",
+      "summary_en": "Static reader package for studying the Feynman Lectures and related material.",
+      "summary_ru": "Статический читательский интерфейс для работы с лекциями Фейнмана.",
+      "title_en": "Feynman Reader"
+    },
+    "Dmitry-dev-pet/physics-intern-hobby-controller": {
+      "category": "agents",
+      "summary_en": "Public orchestration component for a separate private physics research workflow; no private research data included.",
+      "summary_ru": "Публичный компонент запуска задач приватного физического исследования, без приватных данных.",
+      "title_en": "PhysicsIntern Controller",
+      "support": true
+    },
+    "Dmitry-dev-pet/it-mentor-addproject-e2e-fixture": {
+      "category": "experiments",
+      "summary_en": "Public test fixture for an integration test workflow.",
+      "summary_ru": "Публичный тестовый репозиторий для интеграционных проверок.",
+      "support": true
+    },
+    "Dmitry-dev-pet/Dmitry-dev-pet": {
+      "category": "experiments",
+      "summary_en": "GitHub profile overview, mirrored by the About section of this site.",
+      "summary_ru": "Профиль GitHub; ссылка есть в разделе «Обо мне».",
+      "hidden": true
+    },
+    "Dmitry-dev-pet/cv": {
+      "category": "experiments",
+      "summary_en": "CV and professional experience; linked from the About section.",
+      "summary_ru": "Резюме и опыт работы; ссылка находится в разделе «Обо мне».",
+      "hidden": true
+    },
+    "Dmitry-dev-pet/mytest": {
+      "category": "experiments",
+      "summary_en": "Archived test repository.",
+      "summary_ru": "Архивный тестовый репозиторий.",
+      "support": true
+    },
+    "Dmitry-dev-pet/star_elite": {
+      "category": "experiments",
+      "summary_en": "Source repository for a software experiment.",
+      "summary_ru": "Репозиторий программного эксперимента."
+    },
+    "Dmitry-dev-pet/time-receiver": {
+      "category": "science",
+      "summary_en": "Experimental time-receiver project; implementation notes are in the repository.",
+      "summary_ru": "Экспериментальный проект приёмника времени; подробности в репозитории."
+    },
+    "Dimkin33/FeOHxyz": {
+      "category": "science",
+      "summary_en": "Scientific code related to the Fe–O–H system.",
+      "summary_ru": "Научный код для системы Fe–O–H.",
+      "title_en": "Fe–O–H Research",
+      "family": "feoh",
+      "primary": true
+    },
+    "Dimkin33/FeOH_analize": {
+      "category": "science",
+      "summary_en": "Additional Fe–O–H analysis scripts.",
+      "summary_ru": "Дополнительный код анализа системы Fe–O–H.",
+      "family": "feoh"
+    },
+    "Dimkin33/lammps": {
+      "category": "science",
+      "summary_en": "Scientific computing experiments using LAMMPS.",
+      "summary_ru": "Эксперименты с научным моделированием на LAMMPS."
+    },
+    "Dimkin33/Simulation2": {
+      "category": "science",
+      "summary_en": "Simulation code and experiments.",
+      "summary_ru": "Код и эксперименты по моделированию."
+    },
+    "Dimkin33/simulation3": {
+      "category": "science",
+      "summary_en": "Further simulation experiments.",
+      "summary_ru": "Дополнительные эксперименты по моделированию."
+    },
+    "Dimkin33/Docling_Colab": {
+      "category": "tools",
+      "summary_en": "A Colab notebook for extracting text, tables and images from documents with Docling.",
+      "summary_ru": "Colab-ноутбук для извлечения текста, таблиц и изображений из документов с Docling."
+    },
+    "Dimkin33/Currency_Exchange": {
+      "category": "tools",
+      "summary_en": "Code for a currency exchange application.",
+      "summary_ru": "Код приложения для обмена валют.",
+      "title_en": "Currency Exchange",
+      "family": "exchange",
+      "primary": true
+    },
+    "Dimkin33/currency-exchange-frontend": {
+      "category": "tools",
+      "summary_en": "Frontend of the currency exchange application.",
+      "summary_ru": "Фронтенд приложения для обмена валют.",
+      "family": "exchange"
+    },
+    "Dimkin33/tennis_scoreboard": {
+      "category": "tools",
+      "summary_en": "An application for displaying tennis scores.",
+      "summary_ru": "Приложение для отображения счёта в теннисе."
+    },
+    "Dimkin33/Hangman": {
+      "category": "experiments",
+      "summary_en": "A word-guessing game.",
+      "summary_ru": "Игра в угадывание слов."
+    },
+    "Dimkin33/autobattler": {
+      "category": "experiments",
+      "summary_en": "A game development experiment.",
+      "summary_ru": "Эксперимент по разработке игры."
+    },
+    "Dimkin33/YT-Docker-lesson": {
+      "category": "experiments",
+      "summary_en": "Educational material about Docker.",
+      "summary_ru": "Учебные материалы о Docker.",
+      "support": true
+    },
+    "Dimkin33/image": {
+      "category": "experiments",
+      "summary_en": "Experimental repository for image work.",
+      "summary_ru": "Экспериментальный репозиторий для работы с изображениями."
+    }
+  }
+}
