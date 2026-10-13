@@ -25,7 +25,7 @@ python scripts/build_catalog.py --offline
 python -m http.server --directory web 8000
 ```
 
-Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026, grouped into 32 project families.
+Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026. Editorially excluded legacy repositories do not appear on the public site; the current curated snapshot contains 25 included repositories grouped into 23 project families.
 
 ## Maintain the catalog
 
@@ -39,6 +39,7 @@ Edit **`data/curation.json`**. For each public repository you can set:
 - `family` and `primary` — merge companion repositories into a single project card while preserving related links;
 - `support` — put test fixtures and supporting infrastructure behind the extra toggle;
 - `hidden` — omit a standalone profile or CV repo from the project cards (it remains in the GitHub source snapshot).
+- `excluded_repositories` — top-level list of legacy repository names that must **never** appear in public cards, related links or search (even with the supporting-repository toggle). The repos stay on GitHub; this filter is applied before grouping on every scheduled refresh.
 
 **New public repositories appear automatically** under the default `experiments` category during the next scheduled build, even without a curation entry. To promote one, add its metadata and set `featured_order`. Keep the full registry under GitHub ownership; do not publish private projects by accident.
 
