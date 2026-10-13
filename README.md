@@ -14,7 +14,7 @@ The static site is deployed from `web/` by `.github/workflows/pages.yml`.
 
 The daily GitHub Actions build reads only public GitHub REST metadata and
 rebuilds the manually approved catalog from the two account inventories.
-Unapproved public repositories remain absent from cards, related links and search.
+Unapproved public repositories remain absent from standalone cards, related-project listings and search. A published project's technical details may cite source-code tooling without publishing that tool as another project.
 Their names are listed for editorial review in the GitHub Actions build log.
 No PAT, local Mac runner or external database is required for the site. If GitHub Actions artifact
 storage is exhausted, publishing may temporarily fail until storage is
@@ -27,7 +27,7 @@ python scripts/build_catalog.py --offline
 python -m http.server --directory web 8000
 ```
 
-Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026. Only 14 explicitly approved repositories are published, grouped into 13 independent projects (including one related Truthrail starter repository).
+Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026. Only 12 explicitly approved repositories are published, grouped into 11 independent projects (including one related Truthrail starter repository).
 
 ## Maintain the catalog
 
@@ -45,9 +45,12 @@ For each approved public repository you can set:
 - `demo`, `demo_kind` — manually verified demo/video URL, with priority over automatic discovery; otherwise canonical GitHub Pages links are inferred from GitHub's `has_pages` + matching homepage metadata (or canonical owner.github.io path if homepage is empty). Discovery alone is not a live availability guarantee;
 - `tags` — short keywords;
 - `family` and `primary` — merge **approved** companion repositories into a single project card while preserving related links;
+- `implementation_note_en`, `implementation_note_ru` and `implementation_links` — optional bilingual technical details and source-code references **inside** a published project card. Supporting tools cited here do not become independent portfolio projects;
 - `published_repositories` — the only names allowed into the public catalog, including approved related repositories;
-- `excluded_repositories` — permanent blocklist for legacy projects, even if mistakenly approved;
+- `excluded_repositories` — permanent blocklist for legacy, non-owned or supporting projects, even if mistakenly approved; a documented technical-source link may still cite such a repository within another project's implementation details;
 - `hidden` — additional backward-compatible suppression for any approved repository, normally unnecessary.
+
+**Hotwills is not the author's project and must not be presented as such. APatch Blender is supporting tooling, cited only in Coimbra 3D Flyover's implementation details; it is not a standalone portfolio entry.**
 
 **New public repositories are discovered but NEVER auto-published.** Review the candidate names in the latest `Publish open-source portfolio` Actions build log, then deliberately add appropriate entries to `published_repositories` and their editorial metadata through a reviewed PR. Hide educational, obsolete and internal-support repositories by leaving them unapproved; leave their GitHub repositories untouched. To promote a published project, assign `featured_order`. Keep the approval list independent from repository age or last commit date.
 
