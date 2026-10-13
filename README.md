@@ -2,7 +2,7 @@
 
 A responsive, bilingual (English / Russian), zero-backend project directory designed for **https://dmitry-dev-pet.github.io/**.
 
-The public catalog is generated from the two GitHub accounts `Dmitry-dev-pet` and `Dimkin33`. It covers public repositories only, groups related repositories into projects, and maintains editorial descriptions of featured work. It does not copy private project data or store API credentials.
+The public portfolio is an **editorially approved selection**, not a mirror of all repositories. The daily build reads public GitHub metadata from `Dmitry-dev-pet` and `Dimkin33` but displays only repositories explicitly listed in `data/curation.json` under `published_repositories`. Related repositories must also be approved. No private project data, tokens, or credentials are copied.
 
 ## Publication
 
@@ -13,8 +13,10 @@ Repository creation and GitHub Pages administration use the reviewed, owner-only
 The static site is deployed from `web/` by `.github/workflows/pages.yml`.
 
 The daily GitHub Actions build reads only public GitHub REST metadata and
-rebuilds the catalog from the two account inventories. No PAT, local Mac runner
-or external database is required for the site. If GitHub Actions artifact
+rebuilds the manually approved catalog from the two account inventories.
+Unapproved public repositories remain absent from cards, related links and search.
+Their names are listed for editorial review in the GitHub Actions build log.
+No PAT, local Mac runner or external database is required for the site. If GitHub Actions artifact
 storage is exhausted, publishing may temporarily fail until storage is
 available; repository creation and page configuration are separate steps.
 
@@ -25,23 +27,29 @@ python scripts/build_catalog.py --offline
 python -m http.server --directory web 8000
 ```
 
-Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026. Editorially excluded legacy repositories do not appear on the public site; the current curated snapshot contains 25 included repositories grouped into 23 project families.
+Open http://localhost:8000/. Network access is only necessary for `python scripts/build_catalog.py` **without** `--offline` and for the published GitHub Actions workflow. The checked-in offline snapshot covers 36 public repositories verified on October 13, 2026. Only 14 explicitly approved repositories are published, grouped into 13 independent projects (including one related Truthrail starter repository).
 
 ## Maintain the catalog
 
-Edit **`data/curation.json`**. For each public repository you can set:
+Edit **`data/curation.json`**. Public repository status is editorial:
+
+- **Featured** — approved in `published_repositories` and assigned `featured_order` (1–8).
+- **Published** — approved in `published_repositories` without featured order.
+- **Hidden / pending review** — every other repository, regardless of GitHub visibility. Not included in cards, search, related links or publicly deployed JSON.
+
+For each approved public repository you can set:
 
 - `title_en`, `title_ru`, `summary_en`, `summary_ru` — editorial text;
 - `category` — one of `agents`, `science`, `visual`, `tools`, `research`, `experiments`;
-- `featured_order` — 1 through 8 for featured projects;
-- `demo`, `demo_kind` — verified public demo URL or video URL;
+- `featured_order` — 1 through 8 for featured projects; omit for non-featured published projects;
+- `demo`, `demo_kind` — manually verified demo/video URL, with priority over automatic discovery; otherwise canonical GitHub Pages links are inferred from GitHub's `has_pages` + matching homepage metadata (or canonical owner.github.io path if homepage is empty). Discovery alone is not a live availability guarantee;
 - `tags` — short keywords;
-- `family` and `primary` — merge companion repositories into a single project card while preserving related links;
-- `support` — put test fixtures and supporting infrastructure behind the extra toggle;
-- `hidden` — omit a standalone profile or CV repo from the project cards (it remains in the GitHub source snapshot).
-- `excluded_repositories` — top-level list of legacy repository names that must **never** appear in public cards, related links or search (even with the supporting-repository toggle). The repos stay on GitHub; this filter is applied before grouping on every scheduled refresh.
+- `family` and `primary` — merge **approved** companion repositories into a single project card while preserving related links;
+- `published_repositories` — the only names allowed into the public catalog, including approved related repositories;
+- `excluded_repositories` — permanent blocklist for legacy projects, even if mistakenly approved;
+- `hidden` — additional backward-compatible suppression for any approved repository, normally unnecessary.
 
-**New public repositories appear automatically** under the default `experiments` category during the next scheduled build, even without a curation entry. To promote one, add its metadata and set `featured_order`. Keep the full registry under GitHub ownership; do not publish private projects by accident.
+**New public repositories are discovered but NEVER auto-published.** Review the candidate names in the latest `Publish open-source portfolio` Actions build log, then deliberately add appropriate entries to `published_repositories` and their editorial metadata through a reviewed PR. Hide educational, obsolete and internal-support repositories by leaving them unapproved; leave their GitHub repositories untouched. To promote a published project, assign `featured_order`. Keep the approval list independent from repository age or last commit date.
 
 ## Tests
 
