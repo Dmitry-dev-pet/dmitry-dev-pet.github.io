@@ -12,13 +12,11 @@
     "Dmitry-dev-pet/rubik-graph-lab",
     "Dmitry-dev-pet/rulers-chronology-audit",
     "Dmitry-dev-pet/coimbra-video",
-    "Dmitry-dev-pet/apatch-blender",
     "Dmitry-dev-pet/time-receiver",
     "Dmitry-dev-pet/native-audio-translator",
     "Dmitry-dev-pet/form-field-lab",
     "Dmitry-dev-pet/ai-agent-case-studies",
     "Dmitry-dev-pet/dodo-table-events",
-    "Dmitry-dev-pet/hotwills",
     "Dmitry-dev-pet/feynman-reader"
   ],
   "excluded_repositories": [
@@ -32,7 +30,9 @@
     "Dimkin33/Hangman",
     "Dimkin33/autobattler",
     "Dimkin33/image",
-    "Dimkin33/currency-exchange-frontend"
+    "Dimkin33/currency-exchange-frontend",
+    "Dmitry-dev-pet/hotwills",
+    "Dmitry-dev-pet/apatch-blender"
   ],
   "projects": {
     "Dmitry-dev-pet/truthrail-core": {
@@ -108,7 +108,16 @@
         "Geodata"
       ],
       "demo_kind": "video",
-      "featured_order": 5
+      "featured_order": 5,
+      "implementation_note_en": "The Blender reconstruction workflow uses contract-governed scene automation and independent verification of protected geometry.",
+      "implementation_note_ru": "В Blender-ветке реконструкции используются операции по контрактам и независимая проверка сохранности защищённой геометрии.",
+      "implementation_links": [
+        {
+          "label_en": "APatch Blender · source",
+          "label_ru": "APatch Blender · исходники",
+          "url": "https://github.com/Dmitry-dev-pet/apatch-blender"
+        }
+      ]
     },
     "Dmitry-dev-pet/apatch-blender": {
       "category": "tools",
@@ -120,9 +129,9 @@
         "Python",
         "Contracts"
       ],
-      "featured_order": 6,
       "family": "apatch",
-      "primary": true
+      "primary": true,
+      "support": true
     },
     "Dmitry-dev-pet/apatch-blender-demo": {
       "category": "visual",
@@ -167,12 +176,6 @@
       "summary_ru": "Прототип компьютерного зрения для определения занятости столиков по видео.",
       "title_en": "Dodo Table Events"
     },
-    "Dmitry-dev-pet/hotwills": {
-      "category": "tools",
-      "summary_en": "Browser-based collaborative catalog with an editor, statistics, infographics and optional cloud sync.",
-      "summary_ru": "Интерактивный каталог с редактором, статистикой, инфографикой и синхронизацией через Supabase.",
-      "title_en": "Hotwills Catalog"
-    },
     "Dmitry-dev-pet/viselitsa-web": {
       "category": "visual",
       "summary_en": "A browser-based Hangman word game.",
@@ -190,7 +193,8 @@
       "category": "science",
       "summary_en": "Interactive bilingual reader for three volumes of The Feynman Lectures, with formulas, illustrations and accompanying study media.",
       "summary_ru": "Интерактивный читатель трёх томов «Фейнмановских лекций по физике»: формулы, иллюстрации, русская и английская навигация, учебные материалы.",
-      "title_en": "Feynman Reader"
+      "title_en": "Feynman Reader",
+      "featured_order": 6
     },
     "Dmitry-dev-pet/physics-intern-hobby-controller": {
       "category": "agents",

@@ -18,7 +18,7 @@
       aboutText: "I'm Dmitry, an engineer and researcher based in Coimbra, Portugal. My background in computational physics shapes how I build software: make assumptions explicit, test ideas, and keep results reproducible.",
       aboutCV: 'CV & experience', backToTop: 'Back to top ↑',
       all: 'All', agents: 'AI & Agents', science: 'Science', visual: 'Visualization', tools: 'Developer tools', experiments: 'Experiments', research: 'Research',
-      demo: 'Live demo ↗', video: 'Watch video ↗', source: 'Source ↗', repo: 'GitHub ↗',
+      demo: 'Live demo ↗', video: 'Watch video ↗', source: 'Source ↗', repo: 'GitHub ↗', implementationDetails: 'Implementation details',
       results: (n) => `${n} ${n === 1 ? 'project' : 'projects'}`, synced: (date, count) => `${count} curated public repos · synced ${date}`, snapshot: (date, count) => `${count} curated public repos · snapshot ${date}`,
       search: 'Search projects…', loading: 'Loading projects…', loadError: 'Unable to load the catalog. Refresh the page or open the GitHub profiles.',
       archived: 'Archived', support: 'Supporting repo', fork: 'Fork', more: 'Related code', noDescription: 'Public repository — open the source to explore the implementation.', licenseNote: 'Public code does not always come with an open-source license. Check each repository’s license before reusing its code.'
@@ -39,7 +39,7 @@
       aboutText: 'Я Дмитрий, инженер и исследователь из Коимбры, Португалия. Опыт в вычислительной физике определяет мой подход к программированию: явно формулировать предположения, проверять идеи и делать результаты воспроизводимыми.',
       aboutCV: 'Резюме и опыт', backToTop: 'Наверх ↑',
       all: 'Все', agents: 'AI и агенты', science: 'Наука', visual: 'Визуализация', tools: 'Инструменты', experiments: 'Эксперименты', research: 'Исследования',
-      demo: 'Открыть демо ↗', video: 'Смотреть видео ↗', source: 'Исходники ↗', repo: 'GitHub ↗',
+      demo: 'Открыть демо ↗', video: 'Смотреть видео ↗', source: 'Исходники ↗', repo: 'GitHub ↗', implementationDetails: 'Технические подробности',
       results: (n) => `${n} ${plural(n, 'проект', 'проекта', 'проектов')}`, synced: (date, count) => `${count} отобранных репозиториев · обновлено ${date}`, snapshot: (date, count) => `${count} отобранных репозиториев · снимок ${date}`,
       search: 'Поиск проектов…', loading: 'Загружаю проекты…', loadError: 'Не удалось загрузить каталог. Обновите страницу или откройте профили GitHub.',
       archived: 'Архив', support: 'Служебный', fork: 'Форк', more: 'Связанный код', noDescription: 'Публичный репозиторий — подробности доступны в исходном коде.', licenseNote: 'Публичный код не всегда имеет открытую лицензию. Перед использованием проверьте лицензию каждого репозитория.'
@@ -72,6 +72,26 @@
     render();
   }
 
+  function drawImplementation(p) {
+    // Curated technology references may point to supporting source code.
+    // They are not separate public project entries or related repositories.
+    const note = localize(p, 'implementation_note', state.lang);
+    const links = (p.implementation_links || []).map(link => {
+      const url = safeUrl(link.url);
+      if (!url) return '';
+      const label = link[`label_${state.lang}`] || link.label_en || '';
+      return `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)} ↗</a>`;
+    }).filter(Boolean);
+    if (!note && !links.length) return '';
+    return `<details class="related-links implementation-details">
+      <summary>${escapeHtml(labels[state.lang].implementationDetails)}</summary>
+      <div class="implementation-content">
+        ${note ? `<span>${escapeHtml(note)}</span>` : ''}
+        ${links.join('')}
+      </div>
+    </details>`;
+  }
+
   function drawFeatured(p, index) {
     const title = escapeHtml(projectName(p));
     const description = escapeHtml(projectDescription(p));
@@ -84,7 +104,8 @@
       <div class="featured-art art-${escapeHtml(cat)}" aria-hidden="true"><span class="art-index">PROJECT / ${String(index+1).padStart(2,'0')}</span><span class="art-symbol">${deco}</span><span class="art-type">${escapeHtml(categoryName(cat).toUpperCase())}</span></div>
       <div class="featured-body"><div class="card-meta"><span class="card-category">${escapeHtml(categoryName(cat))}</span><span class="meta-dot"></span><span>${escapeHtml((p.language || 'PUBLIC CODE').toUpperCase())}</span></div>
       <h3>${title}</h3><p class="card-copy">${description}</p>
-      <div class="card-bottom"><div class="tech-tags">${tags.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}</div><div class="card-links">${demo ? `<a href="${escapeHtml(demo)}" target="_blank" rel="noopener noreferrer">${p.demo_kind === 'video' ? labels[state.lang].video : labels[state.lang].demo}</a>` : ''}<a href="${escapeHtml(repo)}" target="_blank" rel="noopener noreferrer">${labels[state.lang].source}</a></div></div></div>
+      <div class="card-bottom"><div class="tech-tags">${tags.map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}</div><div class="card-links">${demo ? `<a href="${escapeHtml(demo)}" target="_blank" rel="noopener noreferrer">${p.demo_kind === 'video' ? labels[state.lang].video : labels[state.lang].demo}</a>` : ''}<a href="${escapeHtml(repo)}" target="_blank" rel="noopener noreferrer">${labels[state.lang].source}</a></div></div>
+      ${drawImplementation(p)}</div>
     </article>`;
   }
 
@@ -101,6 +122,7 @@
       <p>${escapeHtml(projectDescription(p))}</p>
       <div class="catalog-card-footer"><div class="language">${escapeHtml(p.language || 'GitHub')}${relatedCount ? ` · +${relatedCount} ${labels[state.lang].more.toLowerCase()}` : ''}</div><div class="links">${demo ? `<a href="${escapeHtml(demo)}" target="_blank" rel="noopener noreferrer">${p.demo_kind === 'video' ? labels[state.lang].video : labels[state.lang].demo}</a>` : ''}<a href="${escapeHtml(repo)}" target="_blank" rel="noopener noreferrer">${labels[state.lang].repo}</a></div></div>
       ${related ? `<details class="related-links"><summary>${labels[state.lang].more} (${p.related.length})</summary><div>${related}</div></details>` : ''}
+      ${drawImplementation(p)}
     </article>`;
   }
 

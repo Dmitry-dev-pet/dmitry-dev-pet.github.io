@@ -21,8 +21,8 @@ class CatalogTests(unittest.TestCase):
 
     def test_public_snapshot_count(self):
         self.assertEqual(self.catalog['discovered_repositories'], 36)
-        self.assertEqual(self.catalog['total_repositories'], 14)
-        self.assertEqual(self.catalog['total_projects'], 13)
+        self.assertEqual(self.catalog['total_repositories'], 12)
+        self.assertEqual(self.catalog['total_projects'], 11)
 
     def test_featured_count_is_eight(self):
         featured = [p for p in self.catalog['projects'] if p['featured_order'] > 0]
@@ -32,8 +32,10 @@ class CatalogTests(unittest.TestCase):
     def test_grouping_keeps_related_links(self):
         groups = {p['full_name']: p for p in self.catalog['projects']}
         self.assertEqual(groups['Dmitry-dev-pet/truthrail-core']['related'][0]['full_name'], 'Dmitry-dev-pet/truthrail-starter')
-        self.assertEqual(groups['Dmitry-dev-pet/apatch-blender']['related'], [])
-        self.assertIn('Dmitry-dev-pet/time-receiver', groups)
+        self.assertNotIn('Dmitry-dev-pet/apatch-blender', groups)
+        self.assertNotIn('Dmitry-dev-pet/hotwills', groups)
+        self.assertIn('Dmitry-dev-pet/coimbra-video', groups)
+        self.assertEqual(groups['Dmitry-dev-pet/coimbra-video']['related'], [])
 
     def test_each_included_repository_reachable_from_catalog_or_marked_hidden(self):
         all_names = {r['full_name'] for r in self.seed}
@@ -47,7 +49,7 @@ class CatalogTests(unittest.TestCase):
     def test_private_repositories_not_published(self):
         malicious = {'full_name': 'Dimkin33/private-prototype', 'private': True}
         result = build_catalog(self.seed + [malicious], self.config, 'snapshot')
-        self.assertEqual(result['total_repositories'], 14)
+        self.assertEqual(result['total_repositories'], 12)
 
     def test_legacy_repositories_are_entirely_absent(self):
         all_listed = set()
@@ -60,6 +62,8 @@ class CatalogTests(unittest.TestCase):
         self.assertNotIn('Dmitry-dev-pet/cloud-file-storage', all_listed)
         self.assertNotIn('Dmitry-dev-pet/viselitsa-web', all_listed)
         self.assertNotIn('Dmitry-dev-pet/star_elite', all_listed)
+        self.assertNotIn('Dmitry-dev-pet/apatch-blender', all_listed)
+        self.assertNotIn('Dmitry-dev-pet/hotwills', all_listed)
 
     def test_excluded_repository_cannot_reappear_on_next_sync(self):
         # Simulate GitHub returning the legacy repository again in the next build.
@@ -67,7 +71,7 @@ class CatalogTests(unittest.TestCase):
         result = build_catalog(self.seed + [resurrected], self.config, 'github')
         included = {p['full_name'] for p in result['projects']}
         self.assertNotIn(resurrected['full_name'], included)
-        self.assertEqual(result['total_repositories'], 14)
+        self.assertEqual(result['total_repositories'], 12)
 
     def test_exclusion_is_case_insensitive(self):
         result = build_catalog(
@@ -90,14 +94,14 @@ class CatalogTests(unittest.TestCase):
         own = {'full_name': 'Dmitry-dev-pet/dmitry-dev-pet.github.io', 'private': False}
         result = build_catalog(self.seed + [own], self.config, 'github')
         self.assertEqual(result['discovered_repositories'], 37)
-        self.assertEqual(result['total_repositories'], 14)
+        self.assertEqual(result['total_repositories'], 12)
         self.assertNotIn(own['full_name'], [p['full_name'] for p in result['projects']])
 
     def test_new_public_repository_requires_editorial_approval(self):
         new = {'full_name': 'Dimkin33/a-new-open-project', 'private': False}
         result = build_catalog(self.seed + [new], self.config, 'github')
         self.assertEqual(result['discovered_repositories'], 37)
-        self.assertEqual(result['total_repositories'], 14)
+        self.assertEqual(result['total_repositories'], 12)
         self.assertNotIn(new['full_name'], [p['full_name'] for p in result['projects']])
         self.assertIn(new['full_name'], editorial_review_candidates(self.seed + [new], self.config))
 
@@ -106,8 +110,8 @@ class CatalogTests(unittest.TestCase):
         approved = copy.deepcopy(self.config)
         approved['published_repositories'].append(new['full_name'])
         result = build_catalog(self.seed + [new], approved, 'github')
-        self.assertEqual(result['total_repositories'], 15)
-        self.assertEqual(result['total_projects'], 14)
+        self.assertEqual(result['total_repositories'], 13)
+        self.assertEqual(result['total_projects'], 12)
         self.assertIn(new['full_name'], [p['full_name'] for p in result['projects']])
 
     def test_new_private_repository_never_enters_review_queue(self):
@@ -117,7 +121,7 @@ class CatalogTests(unittest.TestCase):
     def test_github_pages_auto_detected_for_approved_projects(self):
         projects = {p['full_name']: p for p in self.catalog['projects']}
         base = 'https://dmitry-dev-pet.github.io/'
-        for name in ('feynman-reader', 'hotwills', 'form-field-lab'):
+        for name in ('feynman-reader', 'form-field-lab'):
             project = projects[f'Dmitry-dev-pet/{name}']
             with self.subTest(project=name):
                 self.assertEqual(project['demo'], f'{base}{name}/')
@@ -153,6 +157,40 @@ class CatalogTests(unittest.TestCase):
         projects = {p['full_name']: p for p in self.catalog['projects']}
         self.assertEqual(projects['Dmitry-dev-pet/time-receiver']['featured_order'], 7)
         self.assertEqual(projects['Dmitry-dev-pet/form-field-lab']['featured_order'], 0)
+        self.assertEqual(projects['Dmitry-dev-pet/feynman-reader']['featured_order'], 6)
+        self.assertNotIn('Dmitry-dev-pet/apatch-blender', projects)
+
+    def test_coimbra_has_technical_source_link_not_apatch_project(self):
+        projects = {p['full_name']: p for p in self.catalog['projects']}
+        self.assertNotIn('Dmitry-dev-pet/apatch-blender', projects)
+        self.assertNotIn('Dmitry-dev-pet/hotwills', projects)
+        coimbra = projects['Dmitry-dev-pet/coimbra-video']
+        self.assertEqual(coimbra['related'], [])
+        self.assertEqual(
+            coimbra['implementation_links'], [{
+                'label_en': 'APatch Blender · source',
+                'label_ru': 'APatch Blender · исходники',
+                'url': 'https://github.com/Dmitry-dev-pet/apatch-blender'
+            }],
+        )
+        self.assertIn('Blender', coimbra['implementation_note_en'])
+        self.assertIn('Blender', coimbra['implementation_note_ru'])
+
+    def test_non_owned_hotwills_cannot_be_republished_accidentally(self):
+        excluded = self.config['excluded_repositories']
+        self.assertIn('Dmitry-dev-pet/hotwills', excluded)
+        self.assertIn('Dmitry-dev-pet/apatch-blender', excluded)
+        attempted = copy.deepcopy(self.config)
+        attempted['published_repositories'].extend((
+            'Dmitry-dev-pet/hotwills',
+            'Dmitry-dev-pet/apatch-blender'
+        ))
+        result = build_catalog(self.seed, attempted, 'github')
+        found = {p['full_name'] for p in result['projects']}
+        self.assertNotIn('Dmitry-dev-pet/hotwills', found)
+        self.assertNotIn('Dmitry-dev-pet/apatch-blender', found)
+        self.assertEqual(result['total_projects'], 11)
+
 
 
 if __name__ == '__main__':
