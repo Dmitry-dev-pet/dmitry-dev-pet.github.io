@@ -3,3 +3,5 @@
 .related-links{margin-top:15px;border-top:1px solid #eef0eb;padding-top:11px;color:#607869;font-size:11px}.related-links summary{cursor:pointer;font-weight:750}.related-links>div{display:flex;flex-wrap:wrap;gap:10px;margin-top:11px}.related-links a{color:#3c6949;text-decoration:underline;text-decoration-color:#bdcbbd;text-underline-offset:3px}
 
 .license-note{margin:31px 0 0;font-size:11px;color:#7d8c7f;line-height:1.6;max-width:670px}
+
+.implementation-details .implementation-content{flex-direction:column;align-items:flex-start;gap:9px;line-height:1.5}.implementation-details .implementation-content a{align-self:flex-start;font-weight:700}
