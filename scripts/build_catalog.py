@@ -14,7 +14,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,11 +82,59 @@ def normalize_repository(repo: dict) -> dict:
         'stars': int(repo.get('stargazers_count') or 0),
     }
 
+def discover_github_pages_demo(repo: dict) -> str:
+    """Return a conservative GitHub Pages URL for a public repository.
+
+    GitHub's has_pages flag is the discovery signal. Only the canonical
+    owner.github.io/repository/ path is inferred. Custom domains or unrelated
+    homepage URLs need an explicit, manually reviewed 'demo' entry.
+    This is a link candidate, not a live HTTP availability assertion.
+    """
+    if not repo.get('has_pages'):
+        return ''
+    full_name = repo.get('full_name') or ''
+    if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', full_name):
+        return ''
+    owner, name = full_name.split('/', 1)
+    host = f'{owner.lower()}.github.io'
+    homepage = str(repo.get('homepage') or '').strip()
+    if homepage:
+        try:
+            parsed = urlsplit(homepage)
+            if (
+                parsed.scheme.lower() != 'https'
+                or parsed.hostname != host
+                or parsed.username or parsed.password or parsed.port is not None
+                or parsed.path.rstrip('/').casefold() != f'/{name}'.casefold()
+            ):
+                return ''
+        except ValueError:
+            return ''
+    return f'https://{host}/{name}/'
+
+
+def editorial_review_candidates(repos: list[dict], config: dict) -> list[str]:
+    """Unlisted PUBLIC repos for the build log, never the deployed catalog."""
+    owners = {owner.casefold() for owner in config['owners']}
+    published = {name.casefold() for name in config['published_repositories']}
+    excluded = {name.casefold() for name in config.get('excluded_repositories', [])}
+    own = config.get('site_repository', '').casefold()
+    return sorted({
+        repo['full_name'] for repo in repos
+        if not repo.get('private')
+        and repo['full_name'].split('/')[0].casefold() in owners
+        and repo['full_name'].casefold() not in published
+        and repo['full_name'].casefold() not in excluded
+        and repo['full_name'].casefold() != own
+    }, key=str.casefold)
+
 
 def build_catalog(repos: list[dict], config: dict, source: str) -> dict:
     owners = {owner.lower() for owner in config['owners']}
     metadata = config['projects']
     own_site = config.get('site_repository', '').casefold()
+    # Opt-in only: public GitHub repos never appear until explicitly approved.
+    published = {name.casefold() for name in config['published_repositories']}
     # Explicit editorial exclusions are applied before family grouping, so an
     # excluded legacy repository cannot leak into cards or related links.
     exclusions = {name.casefold() for name in config.get('excluded_repositories', [])}
@@ -103,9 +151,18 @@ def build_catalog(repos: list[dict], config: dict, source: str) -> dict:
             continue  # the portfolio itself is not a portfolio project
         if full_name.casefold() in exclusions:
             continue  # curated legacy exclusion persists across API refreshes
+        if full_name.casefold() not in published:
+            continue  # unapproved repo; never include it in public site JSON
         current = normalize_repository(raw)
         curated = metadata.get(full_name, {})
         current.update({k: v for k, v in curated.items() if k != 'family'})
+        if current.get('demo'):
+            current['demo_source'] = 'curated'
+        else:
+            discovered_demo = discover_github_pages_demo(raw)
+            if discovered_demo:
+                current['demo'] = discovered_demo
+                current['demo_source'] = 'github_pages'
         group = curated.get('family') or full_name
         groups.setdefault(group, []).append(current)
 
@@ -167,6 +224,11 @@ def main(argv: list[str] | None = None) -> int:
             print(f'WARNING: GitHub refresh failed; using checked-in public snapshot: {exc}', file=sys.stderr)
             repos, source = seed, 'snapshot'
     catalog = build_catalog(repos, config, source)
+    candidates = editorial_review_candidates(repos, config)
+    if candidates:
+        print(f'Editorial review: {len(candidates)} public repositories are unlisted')
+        for name in candidates:
+            print(f'  review candidate: {name}')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(f'Wrote {args.output}: {catalog["total_repositories"]} repositories, {catalog["total_projects"]} project groups, source={source}')
