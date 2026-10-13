@@ -1,7 +1,9 @@
 [
   {
     "full_name": "Dmitry-dev-pet/form-field-lab",
-    "archived": false
+    "archived": false,
+    "has_pages": true,
+    "homepage": "https://dmitry-dev-pet.github.io/form-field-lab/"
   },
   {
     "full_name": "Dmitry-dev-pet/cv",
@@ -41,7 +43,9 @@
   },
   {
     "full_name": "Dmitry-dev-pet/feynman-reader",
-    "archived": false
+    "archived": false,
+    "has_pages": true,
+    "homepage": ""
   },
   {
     "full_name": "Dmitry-dev-pet/viselitsa-web",
@@ -53,7 +57,9 @@
   },
   {
     "full_name": "Dmitry-dev-pet/hotwills",
-    "archived": false
+    "archived": false,
+    "has_pages": true,
+    "homepage": "https://dmitry-dev-pet.github.io/hotwills/"
   },
   {
     "full_name": "Dmitry-dev-pet/mermaid-compiler",
@@ -81,7 +87,9 @@
   },
   {
     "full_name": "Dmitry-dev-pet/time-receiver",
-    "archived": false
+    "archived": false,
+    "has_pages": true,
+    "homepage": "https://dmitry-dev-pet.github.io/time-receiver/"
   },
   {
     "full_name": "Dmitry-dev-pet/native-audio-translator",
