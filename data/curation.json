@@ -5,6 +5,19 @@
     "Dimkin33"
   ],
   "site_repository": "Dmitry-dev-pet/dmitry-dev-pet.github.io",
+  "excluded_repositories": [
+    "Dimkin33/FeOHxyz",
+    "Dimkin33/FeOH_analize",
+    "Dimkin33/lammps",
+    "Dimkin33/Simulation2",
+    "Dimkin33/simulation3",
+    "Dimkin33/Docling_Colab",
+    "Dimkin33/YT-Docker-lesson",
+    "Dimkin33/Hangman",
+    "Dimkin33/autobattler",
+    "Dimkin33/image",
+    "Dimkin33/currency-exchange-frontend"
+  ],
   "projects": {
     "Dmitry-dev-pet/truthrail-core": {
       "category": "agents",

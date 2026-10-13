@@ -1,0 +1,29 @@
+name: Validate portfolio changes
+
+on:
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'web/**'
+      - '.github/workflows/catalog-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build offline public catalog
+        run: python scripts/build_catalog.py --offline
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Check browser JavaScript
+        run: node --check web/app.js

@@ -87,6 +87,9 @@ def build_catalog(repos: list[dict], config: dict, source: str) -> dict:
     owners = {owner.lower() for owner in config['owners']}
     metadata = config['projects']
     own_site = config.get('site_repository', '').casefold()
+    # Explicit editorial exclusions are applied before family grouping, so an
+    # excluded legacy repository cannot leak into cards or related links.
+    exclusions = {name.casefold() for name in config.get('excluded_repositories', [])}
     groups: dict[str, list[dict]] = {}
     seen: set[str] = set()
     for raw in repos:
@@ -98,6 +101,8 @@ def build_catalog(repos: list[dict], config: dict, source: str) -> dict:
         seen.add(full_name.casefold())
         if full_name.casefold() == own_site:
             continue  # the portfolio itself is not a portfolio project
+        if full_name.casefold() in exclusions:
+            continue  # curated legacy exclusion persists across API refreshes
         current = normalize_repository(raw)
         curated = metadata.get(full_name, {})
         current.update({k: v for k, v in curated.items() if k != 'family'})
@@ -131,7 +136,8 @@ def build_catalog(repos: list[dict], config: dict, source: str) -> dict:
         'generated_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'sync_source': source,
         'owners': config['owners'],
-        'total_repositories': len(seen),
+        'discovered_repositories': len(seen),
+        'total_repositories': sum(len(entries) for entries in groups.values()),
         'total_projects': len(projects),
         'projects': projects,
     }
