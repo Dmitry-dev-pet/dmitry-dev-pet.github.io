@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "source": "public scientific archive records associated with bibliography entries, private source paths omitted",
+  "by_bib": {
+    "0046": [
+      {
+        "url": "https://archive.org/details/bub_gb_CF8PAAAAQAAJ",
+        "title": "Histoire d'Attila et de ses successeurs",
+        "year": 1856,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://archive.org/details/bub_gb_CbAZQqP1N10C",
+        "title": "Histoire d'Attila et de ses successeurs",
+        "year": 1856,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0189": [
+      {
+        "url": "https://archive.org/details/b21292735",
+        "title": "Principles of Mental Physiology",
+        "year": 1877,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0325": [
+      {
+        "url": "https://archive.org/details/b22313503",
+        "title": "Les Maladies de la Mémoire",
+        "year": 1881,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0414": [
+      {
+        "url": "https://archive.org/details/bub_gb_mYyPc5FBXEQC",
+        "title": "Physiologische Briefe für Gebildete aller Stände",
+        "year": 1854,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://archive.org/details/bub_gb_cZZ8VCrCghwC",
+        "title": "Physiologische Briefe für Gebildete aller Stände",
+        "year": 1854,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://archive.org/details/bub_gb_kR16h3VBR1YC",
+        "title": "Physiologische Briefe für Gebildete aller Stände",
+        "year": 1854,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://archive.org/details/bub_gb_AtA9pKRMpiwC",
+        "title": "Physiologische Briefe für Gebildete aller Stände",
+        "year": 1861,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0267": [
+      {
+        "url": "https://archive.org/details/b28047990",
+        "title": "Habit and Instinct",
+        "year": 1896,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0134": [
+      {
+        "url": "https://archive.org/details/lecturesonelemen00huxl",
+        "title": "Lectures on the Elements of Comparative Anatomy: On the Classification of Animals and on the Vertebrate Skull",
+        "year": 1864,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0219": [
+      {
+        "url": "https://archive.org/details/bub_gb_T8wAAAAAcAAJ",
+        "title": "Geschichte des Materialismus und Kritik seiner Bedeutung in der Gegenwart",
+        "year": 1866,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0081": [
+      {
+        "url": "https://archive.org/details/11896-202436102",
+        "title": "Проводящие пути спинного и головного мозга: руководство к изучению внутренних связей мозга",
+        "year": 1896,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0080": [
+      {
+        "url": "https://archive.org/details/b28072649",
+        "title": "Die Leitungsbahnen im Gehirn und Rückenmark",
+        "year": 1894,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0096": [
+      {
+        "url": "https://archive.org/details/b30542984_0002",
+        "title": "De renunciatione vulnerum, seu Vulnerum lethalium examen",
+        "year": 1711,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0417": [
+      {
+        "url": "https://archive.org/details/b28094992",
+        "title": "The Crayfish: An Introduction to the Study of Zoology",
+        "year": 1880,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0433": [
+      {
+        "url": "https://archive.org/details/integrativeactio00sher",
+        "title": "The Integrative Action of the Nervous System",
+        "year": 1906,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0052": [
+      {
+        "url": "https://archive.org/details/primitivesecrets00webs_0",
+        "title": "Primitive Secret Societies: A Study in Early Politics and Religion",
+        "year": 1908,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0323": [
+      {
+        "url": "https://archive.org/details/b21710818_0001",
+        "title": "Der Mensch, Band 1",
+        "year": 1886,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://archive.org/details/b21710818_0002",
+        "title": "Der Mensch, Band 2",
+        "year": 1887,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0425": [
+      {
+        "url": "https://archive.org/details/derbegriffdesins00zieg",
+        "title": "Der Begriff des Instinktes einst und jetzt",
+        "year": 1910,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0154": [
+      {
+        "url": "https://archive.org/details/lhommeavantlhis00debigoog",
+        "title": "L'homme avant l'histoire",
+        "year": 1888,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0365": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Physiologische_studien_%C3%BCber_die_Hemmungsmechanismen_f%C3%BCr_die_reflexth%C3%A4tigkeit_des_R%C3%BCckenmarks_im_gehirne_des_Frosches_(IA_physiologischest00sech).pdf",
+        "title": "Physiologische Studien über die Hemmungsmechanismen für die Reflexthätigkeit des Rückenmarks im Gehirne des Frosches",
+        "year": 1863,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0153": [
+      {
+        "url": "https://www.biodiversitylibrary.org/item/64466",
+        "title": "The Life and Letters of Charles Darwin, Including an Autobiographical Chapter",
+        "year": 1887,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0366": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:%D0%AD%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B_%D0%BC%D1%8B%D1%81%D0%BB%D0%B8_(%D0%A1%D0%B5%D1%87%D0%B5%D0%BD%D0%BE%D0%B2,_1903).pdf",
+        "title": "Элементы мысли",
+        "year": 1903,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0117": [
+      {
+        "url": "https://wellcomecollection.org/works/xbk7wbhf",
+        "title": "Grundriss der Psychiatrie in klinischen Vorlesungen",
+        "year": 1900,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0192": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Recuerdos_de_mi_vida_-_bdh0000200617_-_Volumen_1.pdf",
+        "title": "Recuerdos de mi vida: Mi infancia y juventud",
+        "year": 1901,
+        "relation_status": "same_work_linked_not_edition_verified"
+      },
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Recuerdos_de_mi_vida_-_bdh0000200617_-_Volumen_2.pdf",
+        "title": "Recuerdos de mi vida: Historia de mi labor científica",
+        "year": 1917,
+        "relation_status": "same_work_linked_not_edition_verified"
+      }
+    ],
+    "0213": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Bodily_changes_in_pain,_hunger,_fear_and_rage,_an_account_of_recent_researches_into_the_function_of_emotional_excitement_(IA_cu31924022542470).pdf",
+        "title": "Bodily Changes in Pain, Hunger, Fear and Rage: An Account of Recent Researches into the Function of Emotional Excitement",
+        "year": 1915,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0354": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Северцов_А.Н._Этюды_по_теории_эволюции._(1912).djvu",
+        "title": "Этюды по теории эволюции: Индивидуальное развитие и эволюция",
+        "year": 1912,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0197": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Traité_des_sensations_-_a_Madame_la_comtesse_de_Vassé_(IA_traitedessensati01cond).pdf",
+        "title": "Traité des sensations, à Madame la Comtesse de Vassé, tome I",
+        "year": 1754,
+        "relation_status": "exact_work_claimed_in_manifest"
+      },
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Traité_des_sensations_-_a_Madame_la_comtesse_de_Vassé_(IA_traitedessensati02cond).pdf",
+        "title": "Traité des sensations, à Madame la Comtesse de Vassé, tome II",
+        "year": 1754,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0255": [
+      {
+        "url": "https://archive.org/details/geschichtedermed0000thme",
+        "title": "Geschichte der Medizin im Überblick mit Abbildungen",
+        "year": 1922,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0258": [
+      {
+        "url": "https://archive.org/details/BIUSante_62823",
+        "title": "Histoire de la médecine depuis ses origines jusqu'à nos jours",
+        "year": 1911,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0198": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Корсаков_C.С._К_психологии_микроцефалов._(1894).pdf",
+        "title": "К психологии микроцефалов",
+        "year": 1894,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ]
+  }
+}
