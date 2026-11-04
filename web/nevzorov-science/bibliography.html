@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Граф библиографических источников книги Александра Невзорова 2013 года: 456 записей, научные каталоги, открытые архивы и статусы проверки.">
+<meta name="color-scheme" content="light dark">
+<title>Научные источники · Nevzorov Lab</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f8fc;--paper:#fff;--ink:#172133;--muted:#67748b;--line:#dbe2ee;--accent:#2868cf;--accentlight:#e8f0fe;--teal:#048575;--amber:#946314}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1323;--paper:#152135;--ink:#f1f5fe;--muted:#a0b0c6;--line:#33435d;--accent:#90bfff;--accentlight:#1d3656;--teal:#79d7c3;--amber:#f9c777}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--accent)}button,input,select{font:inherit}button{cursor:pointer}
+header{max-width:1440px;margin:auto;padding:25px 22px 13px}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:9px;font-size:13px}
+nav a{color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 13px}
+nav a[aria-current=page]{color:var(--ink);background:var(--accentlight);border-color:var(--accent)}
+.kicker{font-size:10px;letter-spacing:.19em;text-transform:uppercase;font-weight:850;color:var(--teal);margin-top:25px}
+h1{font-size:clamp(25px,4vw,43px);letter-spacing:-.05em;line-height:1.1;margin:8px 0}
+.intro{color:var(--muted);font-size:14px;line-height:1.7;max-width:920px;margin:10px 0 17px}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:11px;min-width:130px;padding:11px 17px}
+.stat strong{font-size:22px;display:block;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;color:var(--muted)}
+main{max-width:1440px;margin:auto;padding:0 22px 25px;display:grid;grid-template-columns:minmax(320px,390px) minmax(0,1fr);gap:14px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.sidehead,.panelhead{padding:15px 17px;border-bottom:1px solid var(--line)}
+.panelhead h2,.sidehead h2{font-size:16px;margin:0 0 5px}
+.help{font-size:12px;color:var(--muted);line-height:1.55}
+.filters{padding:15px 17px;display:grid;gap:10px;border-bottom:1px solid var(--line)}
+label{font-size:12px;font-weight:700}
+input[type=search],select{display:block;width:100%;margin-top:5px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);color:var(--ink);font-size:13px}
+.results{max-height:630px;overflow-y:auto}
+.result{display:block;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);padding:13px 16px;color:var(--ink)}
+.result:hover,.result:focus-visible{background:var(--accentlight);outline:none}
+.result[aria-selected=true]{background:var(--accentlight);box-shadow:inset 4px 0 0 var(--accent)}
+.rid{font:750 11px ui-monospace,Consolas,monospace;color:var(--accent);margin-bottom:6px}
+.citation{font-size:13px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.pill{font-size:10px;color:var(--muted);border:1px solid var(--line);padding:3px 6px;border-radius:5px}
+.pager{display:flex;align-items:center;justify-content:space-between;padding:10px 15px;gap:8px}
+.pager button{padding:7px 10px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--ink);font-size:12px}
+.pager button:disabled{opacity:.35;cursor:default}
+.workspace{min-width:0}
+.workpad{padding:17px}
+.svg-wrap{overflow-x:auto;background:var(--bg);border:1px solid var(--line);border-radius:11px}
+svg{display:block;min-width:570px;width:100%;height:auto}
+.graph-line{stroke:var(--muted);stroke-width:1.5;stroke-opacity:.65;fill:none}
+.graph-node{fill:var(--paper);stroke:var(--line);stroke-width:1.5}
+.graph-node.book{stroke:var(--accent)}.graph-node.entry{stroke:var(--teal);stroke-width:2}
+.graph-node.catalog{stroke:var(--accent)}.graph-node.archive{stroke:var(--teal)}.graph-node.viewer{stroke:var(--amber)}.graph-node.copy{stroke:var(--muted);stroke-dasharray:4 3}
+.svg-type{fill:var(--muted);font-size:10px;font-weight:700;letter-spacing:.05em}.svg-label{fill:var(--ink);font-size:13px;font-weight:650}
+.svg-caption{fill:var(--muted);font-size:10px}
+.detail{padding:18px 18px 21px}
+.detail h3{font-size:17px;line-height:1.45;margin:6px 0 13px}
+.key{color:var(--muted);font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin:17px 0 5px}
+.info{font-size:13px;line-height:1.65;margin:4px 0;color:var(--ink)}
+.info.muted{color:var(--muted)}
+.linklist{display:flex;flex-direction:column;gap:8px}
+.linklist a{display:block;font-size:13px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;overflow-wrap:anywhere}
+.linklist a:hover{background:var(--accentlight)}
+.linklist small{display:block;color:var(--muted);margin-top:4px}
+.statusline{display:flex;flex-wrap:wrap;gap:8px}
+.flag{display:inline-block;font-size:11px;padding:5px 9px;border:1px solid var(--line);border-radius:7px;background:var(--bg)}
+.disclaimer{max-width:1440px;padding:0 22px 30px;color:var(--muted);font-size:12px;line-height:1.75;margin:auto}
+@media(max-width:960px){main{grid-template-columns:1fr}.results{max-height:300px}.filters{grid-template-columns:1fr 1fr;align-items:end}.filters>:first-child{grid-column:1/-1}}
+@media(max-width:520px){header{padding:17px 12px 10px}main{padding:0 9px 20px}.stat{min-width:0;flex:1}.stats{gap:6px}.stat{padding:10px}.stat strong{font-size:18px}.filters{padding:12px;gap:8px}.workpad,.detail{padding:12px}.disclaimer{padding:0 12px 22px}}
+</style>
+</head>
+<body>
+<header>
+<nav><a href="./">Граф научных идей</a><a href="bibliography.html" aria-current="page">Библиография и архивы</a><a href="https://dmitry-dev-pet.github.io/">Портфолио</a></nav>
+<div class="kicker">Nevzorov Lab / Public bibliography explorer</div>
+<h1>Научные источники и архивы</h1>
+<p class="intro">Все 456 библиографических записей из цифровой книги 2013 года. Выберите работу, чтобы увидеть её место в графе, открытые каталожные и архивные ссылки, а также степень проверки. Это исследовательская карта, а не публикация закрытой библиотеки.</p>
+<div class="stats" aria-label="Объём библиографии">
+<div class="stat"><strong id="stat-total">456</strong><span>записей</span></div>
+<div class="stat"><strong id="stat-confirmed">409</strong><span>идентифицировано</span></div>
+<div class="stat"><strong id="stat-linked">101</strong><span>связаны с копиями</span></div>
+<div class="stat"><strong id="stat-archive">—</strong><span>адресов архивов</span></div>
+</div>
+</header>
+<main>
+<section class="panel" aria-label="Поиск по библиографии">
+<div class="sidehead"><h2>Записи библиографии</h2><span id="count" class="help">Загрузка публичных данных…</span></div>
+<div class="filters">
+<div><label for="search">Поиск по ID и названию</label><input type="search" id="search" placeholder="Мунк, 1881, 0029, Папец…"></div>
+<div><label for="status">Состояние</label><select id="status"><option value="all">Все 456 записей</option><option value="confirmed">Идентифицированы</option><option value="candidate">Требуют уточнения</option><option value="linked">Есть связь с копией</option><option value="partial">Частичная/смежная</option><option value="missing">Копия не установлена</option></select></div>
+<div><label for="links">Открытые ссылки</label><select id="links"><option value="all">Без ограничений</option><option value="catalog">Есть каталожная ссылка</option><option value="archive">Есть архивный экземпляр</option><option value="viewer">Есть путь к просмотру</option></select></div>
+</div>
+<div id="results" class="results" role="listbox" aria-label="Найденные библиографические записи"></div>
+<div class="pager"><button type="button" id="prev">← Назад</button><span id="page-label" class="help"></span><button type="button" id="next">Вперёд →</button></div>
+</section>
+<section class="panel workspace" id="selected-entry" aria-label="Граф отдельной записи">
+<div class="panelhead"><h2>Граф выбранного источника</h2><span class="help">Стрелка указывает отношение, а не доказательство чтения или научной истинности.</span></div>
+<div class="workpad">
+<div class="svg-wrap"><svg id="focus-graph" viewBox="0 0 860 515" role="img" aria-label="Книга, цитируемая работа, публичный каталог, архив, просмотр и закрытая копия"><g id="graph-lines"></g><g id="graph-nodes"></g></svg></div>
+</div>
+<div class="detail" id="detail" aria-live="polite"><p class="help">Выберите строку библиографии слева.</p></div>
+</section>
+</main>
+<p class="disclaimer">Библиографическая идентификация не означает прочтения оригинала исследователем или Невзоровым. Архивный адрес может вести к другому изданию, переводу, части тома или странице с ограниченным доступом. Приватные оригиналы, файлы Google Drive и внутренние метаданные не публикуются. Публичные ссылки открываются только по вашему действию; сведения о статусах основаны на срезе репозитория от 4 ноября 2026 года.</p>
+<script src="bibliography.js" defer></script>
+</body>
+</html>

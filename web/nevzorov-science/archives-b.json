@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "source": "public scientific archive records associated with bibliography entries, private source paths omitted",
+  "by_bib": {
+    "0451": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Вопросы_философии_и_психологии._Книга_083._(1906).pdf",
+        "title": "О психике паукообразных животных",
+        "year": 1906,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0160": [
+      {
+        "url": "https://archive.org/details/comingofevolutio00judd",
+        "title": "The Coming of Evolution: The Story of a Great Revolution in Science",
+        "year": 1912,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0051": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/File:Annali_universali_di_medicina._Volume_116,_1845_(IA_s12id13209840).pdf",
+        "title": "Eduardi et Ernesti Henrici Weberi experimenta, quibus probatur nervos vagos rotatione machinae galvano-magneticae irritatos, motum cordis retardare et adeo intercipere",
+        "year": 1845,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0003": [
+      {
+        "url": "https://bipadi.ub.edu/digital/collection/atlesmed/id/97627",
+        "title": "Textura del sistema nervioso del hombre y de los vertebrados. Tomo II, primera parte",
+        "year": 1904,
+        "relation_status": "exact_work_claimed_in_manifest"
+      },
+      {
+        "url": "https://bipadi.ub.edu/digital/collection/atlesmed/id/98839",
+        "title": "Textura del sistema nervioso del hombre y de los vertebrados. Tomo II, segunda parte",
+        "year": 1904,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0114": [
+      {
+        "url": "https://archive.org/details/BIUSante_00302_1543",
+        "title": "De humani corporis fabrica libri septem",
+        "year": 1543,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0191": [
+      {
+        "url": "https://simurg.csic.es/view/990011482000204201_V02/monografias-de-s-ramon-y-cajal-y-discipulos-vol-02",
+        "title": "Consideraciones generales sobre la morfología de la célula nerviosa",
+        "year": 1894,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0006": [
+      {
+        "url": "https://archive.org/details/BIUSante_130135x1905",
+        "title": "Sur une forme d'hypocondrie aberrante due à la perte de la conscience du corps",
+        "year": 1905,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0007": [
+      {
+        "url": "https://archive.org/details/proceedings-knaw-series-b_1924_27_3-4",
+        "title": "On the Principal Characters of the Cranium and the Brain, the Mandible and the Teeth of Pithecanthropus Erectus",
+        "year": 1924,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0167": [
+      {
+        "url": "https://archive.org/details/derursprungderw00dohrgoog",
+        "title": "Der Ursprung der Wirbelthiere und das Princip des Functionswechsels",
+        "year": 1875,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0256": [
+      {
+        "url": "https://archive.org/details/geschichtedermed0000thme",
+        "title": "Primitive Medizin",
+        "year": 1922,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0176": [
+      {
+        "url": "https://archive.org/details/geschichtedermed0000thme",
+        "title": "Die mittlere Zeit vom Tode des Galenos bis zu Bacon von Verulam",
+        "year": 1922,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0355": [
+      {
+        "url": "https://www.klex.ru/oby",
+        "title": "Морфологические закономерности эволюции",
+        "year": 1939,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0356": [
+      {
+        "url": "https://www.klex.ru/oc3",
+        "title": "Собрание сочинений. Том III: Общие вопросы эволюции",
+        "year": 1945,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0353": [
+      {
+        "url": "https://www.klex.ru/oc3",
+        "title": "Эволюция и эмбриология",
+        "year": 1910,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0357": [
+      {
+        "url": "https://www.klex.ru/obx",
+        "title": "Главные направления эволюционного процесса",
+        "year": 1934,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0370": [
+      {
+        "url": "https://vnd-hse.narod.ru/Sechenov_Reflexy_golovnogo_mozga.pdf",
+        "title": "Рефлексы головного мозга",
+        "year": 1863,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0261": [
+      {
+        "url": "https://archive.org/details/etudessurlanatu00metcgoog",
+        "title": "Études sur la nature humaine",
+        "year": 1903,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0098": [
+      {
+        "url": "https://search.rsl.ru/ru/record/01005236605",
+        "title": "Кисть ископаемого человека из грота Киик-Коба",
+        "year": 1941,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0134": [
+      {
+        "url": "https://archive.org/details/lecturesoneleme00huxlgoog",
+        "title": "Lectures on the Elements of Comparative Anatomy",
+        "year": 1864,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0222": [
+      {
+        "url": "https://archive.org/details/origincivilisat00lubbgoog",
+        "title": "The Origin of Civilisation and the Primitive Condition of Man",
+        "year": 1870,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0298": [
+      {
+        "url": "https://archive.org/details/dvadtsatiletnijopytobektivnogoizuchenij8",
+        "title": "Двадцатилетний опыт объективного изучения высшей нервной деятельности (поведения) животных",
+        "year": 1925,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0219": [
+      {
+        "url": "https://archive.org/details/geschichtedesma00langgoog",
+        "title": "Geschichte des Materialismus und Kritik seiner Bedeutung in der Gegenwart",
+        "year": 1876,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0368": [
+      {
+        "url": "https://www.klex.ru/ixr",
+        "title": "Избранные произведения. Том I: Физиология и психология",
+        "year": 1952,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0369": [
+      {
+        "url": "https://archive.org/details/2-1956_202503",
+        "title": "Материалы для будущей физиологии алкогольного опьянения",
+        "year": 1859,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0202": [
+      {
+        "url": "https://archive.org/details/1929_20211201",
+        "title": "Учение о локализациях. Головной мозг",
+        "year": 1929,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0093": [
+      {
+        "url": "https://www.klex.ru/25vl",
+        "title": "Техника первобытно-коммунистического общества",
+        "year": 1936,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0450": [
+      {
+        "url": "https://archive.org/details/lehrbuchdergeric00emme",
+        "title": "Lehrbuch der gerichtlichen Medizin",
+        "year": 1900,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0387": [
+      {
+        "url": "https://archive.org/details/comptesrendusdes1878soci",
+        "title": "Étude sur les centres psychomoteurs des animaux nouveau-nés et sur leur développement dans différentes conditions",
+        "year": 1878,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0145": [
+      {
+        "url": "https://archive.org/details/ourfacefromfisht00greg",
+        "title": "Our Face from Fish to Man",
+        "year": 1929,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0054": [
+      {
+        "url": "https://archive.org/details/sim_journal-of-physiology_the-journal-of-physiology_1904_31",
+        "title": "A pseudaffective reflex and its spinal path",
+        "year": 1904,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0197": [
+      {
+        "url": "https://archive.org/details/traitdessensat01cond",
+        "title": "Traité des sensations, tome 1",
+        "year": 1754,
+        "relation_status": "exact_work_claimed_in_manifest"
+      },
+      {
+        "url": "https://archive.org/details/traitdessensat02cond",
+        "title": "Traité des sensations, tome 2",
+        "year": 1754,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0020": [
+      {
+        "url": "https://archive.org/details/brainsofratsmens00herr",
+        "title": "Brains of Rats and Men: A Survey of the Origin and Biological Significance of the Cerebral Cortex",
+        "year": 1926,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0042": [
+      {
+        "url": "https://archive.org/details/dasarchaischprim0000alfr",
+        "title": "Das archaisch-primitive Erleben und Denken der Schizophrenen",
+        "year": 1922,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0213": [
+      {
+        "url": "https://archive.org/details/bodilychangesin03canngoog",
+        "title": "Bodily Changes in Pain, Hunger, Fear, and Rage",
+        "year": 1915,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0021": [
+      {
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1363130/",
+        "title": "Receptive fields of single neurones in the cat's striate cortex",
+        "year": 1959,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0258": [
+      {
+        "url": "https://archive.org/details/histoiredelamdec00meun",
+        "title": "Histoire de la médecine depuis ses origines jusqu'à nos jours",
+        "year": 1911,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ],
+    "0255": [
+      {
+        "url": "https://archive.org/details/geschichtederme00sudhgoog",
+        "title": "Geschichte der Medizin im Überblick mit Abbildungen",
+        "year": 1921,
+        "relation_status": "exact_work_claimed_in_manifest"
+      }
+    ]
+  }
+}
