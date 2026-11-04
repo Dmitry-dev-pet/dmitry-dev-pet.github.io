@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Nevzorov Lab · Граф научных идей</title>
+<style>
+:root { color-scheme:light dark; --bg:#f7f8fa; --paper:#ffffff; --text:#192235; --muted:#64748b; --stroke:#dce1e9; --subtle:#eef2f7; --blue:#2563eb; --purple:#9333ea; --teal:#0d9488; --amber:#b45309; }
+@media (prefers-color-scheme:dark) { :root { --bg:#0b1120; --paper:#141d2c; --text:#f3f6fb; --muted:#a1aec0; --stroke:#354259; --subtle:#1e2b40; --blue:#93c5fd; --purple:#d8b4fe; --teal:#5eead4; --amber:#fbbf24; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+header { max-width:1600px; margin:auto; padding:26px 28px 14px; }
+h1 { font-size:clamp(23px,3vw,34px); line-height:1.14; letter-spacing:-.035em; margin:6px 0; }
+.subtitle { color:var(--muted); line-height:1.55; max-width:900px; font-size:14px; margin:10px 0; }
+.kicker { color:var(--teal); text-transform:uppercase; font-size:11px; font-weight:750; letter-spacing:.16em; }
+.status { display:flex; align-items:center; gap:14px; flex-wrap:wrap; font-size:12px; color:var(--muted); margin:12px 0 2px; }
+.status strong { color:var(--text); font-variant-numeric:tabular-nums; }
+.layout { max-width:1600px; padding:0 28px 28px; margin:auto; display:grid; grid-template-columns:260px minmax(0,1fr) 292px; gap:14px; align-items:start; }
+.panel { border:1px solid var(--stroke); border-radius:14px; background:var(--paper); box-shadow:0 4px 25px rgba(4,11,23,.025); }
+.controls,.inspector { padding:17px; }
+.controls h2,.inspector h2 { font-size:14px; margin:0 0 16px; }
+.control { margin:12px 0 18px; }
+label,.control-label { display:block; font-size:12px; font-weight:650; margin-bottom:7px; }
+input[type=search],select { width:100%; min-width:0; background:var(--bg); color:var(--text); border:1px solid var(--stroke); border-radius:9px; padding:10px 11px; font:inherit; font-size:13px; }
+.type-row { display:flex; align-items:center; gap:8px; padding:5px 1px; font-size:13px; cursor:pointer; font-weight:450; }
+.type-row input { accent-color:var(--blue); }
+.swatch { display:inline-block; width:10px; height:10px; border-radius:4px; flex-shrink:0; }
+.swatch.idea { background:var(--blue); } .swatch.claim { background:var(--purple); } .swatch.study { background:var(--teal); } .swatch.finding { background:var(--amber); }
+button { border:1px solid var(--stroke); color:var(--text); background:var(--subtle); border-radius:9px; padding:8px 11px; font-size:13px; font-weight:600; cursor:pointer; }
+button:hover { border-color:var(--blue); }
+.viewer { overflow:auto; position:relative; min-height:660px; }
+.toolbar { display:flex; align-items:center; justify-content:space-between; padding:12px 14px; border-bottom:1px solid var(--stroke); gap:6px; flex-wrap:wrap; }
+.toolbar p { font-size:12px; color:var(--muted); margin:0; }
+.zoom { display:flex; gap:5px; }
+.graph-frame { min-width:690px; }
+svg { display:block; width:100%; height:auto; min-height:570px; touch-action:pan-x pan-y; }
+.node { cursor:pointer; outline:none; }
+.node rect { fill:var(--paper); stroke-width:1.8px; rx:11px; }
+.node.idea rect { stroke:var(--blue); } .node.claim rect { stroke:var(--purple); } .node.study rect { stroke:var(--teal); } .node.finding rect { stroke:var(--amber); }
+.node .type { font-size:9px; letter-spacing:.08em; fill:var(--muted); font-weight:750; }
+.node .title { font-size:13px; fill:var(--text); font-weight:650; }
+.node.selected rect,.node:focus rect { stroke-width:3.4px; filter:drop-shadow(0 3px 6px rgba(0,0,0,.12)); }
+.edge { fill:none; stroke:var(--muted); stroke-width:1.25; opacity:.24; }
+.edge.active { stroke:var(--blue); stroke-width:2.7; opacity:1; }
+.edge.off { opacity:.04; }
+.node.off { opacity:.17; }
+.node:hover rect { stroke-width:3; }
+.hint { margin:12px 0; padding:11px; border-radius:9px; font-size:12px; line-height:1.6; color:var(--muted); background:var(--subtle); }
+.inspector h3 { font-size:18px; line-height:1.3; margin:0 0 10px; }
+.inspector p { font-size:13px; color:var(--muted); line-height:1.65; }
+.meta { font-size:11px; font-weight:650; letter-spacing:.05em; color:var(--muted); text-transform:uppercase; margin:12px 0 5px; }
+a { color:var(--blue); text-decoration:none; overflow-wrap:anywhere; }
+a:hover { text-decoration:underline; }
+.rel { border-top:1px solid var(--stroke); padding:10px 0; font-size:12px; line-height:1.6; }
+.rel strong { font-size:12px; }
+.rel .direction { color:var(--muted); font-size:11px; margin-bottom:3px; }
+.footer { max-width:1600px; margin:0 auto; padding:0 28px 28px; font-size:12px; line-height:1.65; color:var(--muted); }
+@media(max-width:1120px){.layout{grid-template-columns:250px minmax(0,1fr)}.inspector{grid-column:1/-1}}
+@media(max-width:690px){header{padding:19px 14px 10px}.layout{padding:0 10px 18px;display:flex;flex-direction:column}.layout>.panel{width:100%}.viewer{min-height:420px}.graph-frame{min-width:690px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.controls h2{grid-column:1/-1}.control{margin:0}.footer{padding:0 14px 18px}}
+</style>
+</head>
+<body>
+<header>
+<div class="kicker">Nevzorov Lab / Scientific Idea Graph</div>
+<h1>История научных идей</h1>
+<p class="subtitle">От аргументов книги 2013 года к исследованиям, экспериментам и ограничениям выводов. Схема показывает документированные связи, а не доказанную личную цепочку чтения автора.</p>
+<div class="status"><span><strong id="count-nodes">24</strong> узла</span><span><strong id="count-edges">31</strong> связь</span><span>Источник истины: <strong>map.yaml</strong></span><span>Публикационный просмотр — научные метаданные</span></div>
+</header>
+<main class="layout">
+<aside class="panel controls" aria-label="Фильтры графа">
+<h2>Исследовать граф</h2>
+<div class="control"><label for="search">Поиск узла</label><input id="search" type="search" placeholder="Невзоров, голуби, A5..."></div>
+<div class="control"><div class="control-label">Типы узлов</div>
+<label class="type-row"><input type="checkbox" data-type="claim" checked><span class="swatch claim"></span>Тезисы автора</label>
+<label class="type-row"><input type="checkbox" data-type="idea" checked><span class="swatch idea"></span>Научные вопросы</label>
+<label class="type-row"><input type="checkbox" data-type="study" checked><span class="swatch study"></span>Публикации</label>
+<label class="type-row"><input type="checkbox" data-type="finding" checked><span class="swatch finding"></span>Результаты и границы</label>
+</div>
+<div class="control"><label for="edge-filter">Тип связи</label><select id="edge-filter"><option value="">Все связи</option></select></div>
+<div class="control"><label for="era">Время научных работ</label><select id="era"><option value="all">Все годы</option><option value="early">До 2014</option><option value="modern">2014 и позже</option><option value="latest">2024 и позже</option></select></div>
+<div class="control"><button type="button" id="clear">Сбросить фильтры</button></div>
+<div class="hint">Нажмите на узел, чтобы увидеть его источник и связи. Работа, опубликованная после 2013 года, не может служить источником книги 2013 года.</div>
+</aside>
+<section class="panel viewer" aria-label="Граф научных идей">
+<div class="toolbar"><p id="visible-count" aria-live="polite">Загрузка...</p><div class="zoom"><button id="minus" type="button" title="Уменьшить">−</button><button id="plus" type="button" title="Увеличить">+</button><button id="reset-zoom" type="button">Масштаб 100%</button></div></div>
+<div class="graph-frame"><svg id="network" viewBox="0 0 1480 960" role="img" aria-label="Ориентированный граф исследований с интерактивными узлами">
+<defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 z" fill="currentColor" opacity=".32"></path></marker></defs>
+<g id="edge-layer"></g><g id="node-layer"></g></svg></div>
+</section>
+<aside class="panel inspector" id="inspector" aria-live="polite" aria-label="Подробности выбранного узла"><h2>Карточка источника</h2><p>Выберите узел графа. Здесь появятся его статус, доказательства и соседние связи.</p></aside>
+</main>
+<p class="footer">Исследовательская версия: связи <em>frames</em> и <em>argument_sequence</em> описывают реконструкцию книги в PR #80; <em>studies</em> не означает, что Невзоров цитировал соответствующую работу. Публикуются только отобранные описания и открытые DOI; приватные материалы не включены. DOI и ссылки открываются только по вашему нажатию.</p>
+<script id="graph-json" type="application/json">{"schema_version":1,"map_id":"SCI-HIST-20261104","nodes":[{"id":"I01","type":"idea","label":"Номинация, память и категории","description":"Узлы книги: A3","status":"existing_draft_research","url":null,"year":null,"locator":null},{"id":"I02","type":"idea","label":"Внутренняя речь и невербальное мышление","description":"Узлы книги: A4","status":"queued","url":null,"year":null,"locator":null},{"id":"I03","type":"idea","label":"Социальная передача и кумулятивное знание","description":"Узлы книги: A5, A6, A7","status":"preliminary_evidence_map","url":null,"year":null,"locator":null},{"id":"I04","type":"idea","label":"Распределённые функции мозга","description":"Узлы книги: A0, A1","status":"reading_started","url":null,"year":null,"locator":null},{"id":"I05","type":"idea","label":"Эмоции, мотивации и нейронные объяснения","description":"Узлы книги: B1","status":"preliminary_research","url":null,"year":null,"locator":null},{"id":"A1","type":"claim","label":"Мозг не наследует готовые знания","description":"Тезис автора в CAPUT V ¶287–293; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CAPUT V ¶287–293"},{"id":"A3","type":"claim","label":"Номинации организуют доступ к памяти","description":"Тезис автора в CAPUT VII ¶103–123; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CAPUT VII ¶103–123"},{"id":"A4","type":"claim","label":"Внутренняя речь и мышление","description":"Тезис автора в CAPUT VII ¶127–174; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CAPUT VII ¶127–174"},{"id":"A5","type":"claim","label":"Передача и внешняя фиксация открытия","description":"Тезис автора в CAPUT VI ¶64–69; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CAPUT VI ¶64–69"},{"id":"A6","type":"claim","label":"Общественное накопление знания","description":"Тезис автора в CONCLUSIO ¶0–7; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CONCLUSIO ¶0–7"},{"id":"A7","type":"claim","label":"Новое открытие опирается на прежние","description":"Тезис автора в CONCLUSIO ¶4–6; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CONCLUSIO ¶4–6"},{"id":"B1","type":"claim","label":"Биологические мотивы и интеллект","description":"Тезис автора в CONCLUSIO ¶8, ¶29, ¶32–40; черновая реконструкция PR #80.","status":"author_argument_in_draft","url":null,"year":null,"locator":"CONCLUSIO ¶8, ¶29, ¶32–40"},{"id":"CCE-2008-KIRBY","type":"study","label":"Kirby et al. 2008 — цепная передача языка","description":"2008 · sequential_human_artificial_language_experiment; статус: primary_article_reviewed; цитирование автором: unverified","status":"primary_article_reviewed","url":"https://doi.org/10.1073/pnas.0707835105","year":2008,"locator":null},{"id":"CCE-2008-CALDWELL","type":"study","label":"Caldwell & Millen 2008 — культурный храповик","description":"2008 · review; статус: abstract_checked; цитирование автором: unverified","status":"abstract_checked","url":"https://doi.org/10.1098/rstb.2008.0133","year":2008,"locator":null},{"id":"CCE-2012-DEAN","type":"study","label":"Dean et al. 2012 — обучение сложному навыку","description":"2012 · comparative_behavioral_experiment; статус: primary_article_reviewed; цитирование автором: unverified","status":"primary_article_reviewed","url":"https://doi.org/10.1126/science.1213969","year":2012,"locator":null},{"id":"CCE-2017-SASAKI","type":"study","label":"Sasaki & Biro 2017 — маршруты голубей","description":"2017 · homing_pigeon_experiment; статус: abstract_checked; цитирование автором: impossible_post_2013","status":"abstract_checked","url":"https://doi.org/10.1038/ncomms15049","year":2017,"locator":null},{"id":"CCE-2018-MESOUDI","type":"study","label":"Mesoudi & Thornton 2018 — критерии кумуляции","description":"2018 · synthesis_criteria; статус: abstract_and_definitions_checked; цитирование автором: impossible_post_2013","status":"abstract_and_definitions_checked","url":"https://doi.org/10.1098/rspb.2018.0712","year":2018,"locator":null},{"id":"CCE-2024-BRIDGES","type":"study","label":"Bridges et al. 2024 — обучение шмелей","description":"2024 · bumblebee_social_learning_experiment; статус: abstract_checked; цитирование автором: impossible_post_2013","status":"abstract_checked","url":"https://doi.org/10.1038/s41586-024-07126-4","year":2024,"locator":null},{"id":"CCE-2024-LEEUWEN","type":"study","label":"van Leeuwen et al. 2024 — обучение шимпанзе","description":"2024 · chimpanzee_social_learning_experiment; статус: abstract_checked; цитирование автором: impossible_post_2013","status":"abstract_checked","url":"https://doi.org/10.1038/s41562-024-01836-5","year":2024,"locator":null},{"id":"CCE-2026-OHLINGER","type":"study","label":"Ohlinger et al. 2026 — обзор критерия накопления","description":"2026 · review; статус: abstract_checked; цитирование автором: impossible_post_2013","status":"abstract_checked","url":"https://doi.org/10.1016/j.tree.2026.03.003","year":2026,"locator":null},{"id":"F-CHAIN","type":"finding","label":"Передача допускает последовательное улучшение","description":"Передаваемое решение может изменяться через поколения учеников; условия и критерии кумуляции различаются.","status":"supported_in_specific_designs","url":null,"year":null,"locator":null},{"id":"F-NOWRITE","type":"finding","label":"Не всякое накопление требует письменности","description":"Улучшение навигации голубей ограничивает сильное утверждение о необходимости письма для всякой кумуляции; не опровергает преимущества внешней записи.","status":"cross_species_scope_limited","url":null,"year":null,"locator":null},{"id":"F-ANIMALS","type":"finding","label":"Социальное научение есть и у других видов","description":"Шмели и шимпанзе могут социально осваивать сложный навык; само по себе это не доказательство долговременной научной культуры.","status":"cross_species_scope_limited","url":null,"year":null,"locator":null},{"id":"F-SCIENCE","type":"finding","label":"Что необходимо именно для научного знания?","description":"Открытый вопрос об отличии повторяемой науки от социальной передачи навыка: критика, воспроизведение, архив, институты, язык.","status":"open_question","url":null,"year":null,"locator":null}],"edges":[{"id":"R001","source":"A1","target":"I04","kind":"frames","evidence":null,"note":"Анатомия не содержит готовых приобретённых знаний."},{"id":"R002","source":"A3","target":"I01","kind":"frames","evidence":null,"note":"Восстановленный тезис A3, не утверждение о доказанности гиппокампального механизма."},{"id":"R003","source":"A4","target":"I02","kind":"frames","evidence":null,"note":"Внутренняя речь не тождественна всякому невербальному мышлению."},{"id":"R004","source":"A5","target":"I03","kind":"frames","evidence":null,"note":"Переход от открытия к передаче другим."},{"id":"R005","source":"A6","target":"I03","kind":"frames","evidence":null,"note":"Знания предшествующих поколений как ресурс нового знания."},{"id":"R006","source":"A7","target":"I03","kind":"frames","evidence":null,"note":"Последовательность открытий представлена автором как наращивание."},{"id":"R007","source":"B1","target":"I05","kind":"frames","evidence":null,"note":"Отдельная от A5–A7 линия о мотивации."},{"id":"R008","source":"A3","target":"A4","kind":"argument_sequence","evidence":null,"note":"Последовательность звеньев в реконструкции PR #80, не нейронная причинность."},{"id":"R009","source":"A4","target":"A5","kind":"argument_sequence","evidence":null,"note":"Переход от словесных операций к социальной передаче."},{"id":"R010","source":"A5","target":"A6","kind":"argument_sequence","evidence":null,"note":"Переход от передачи к коллективному запасу знаний."},{"id":"R011","source":"A6","target":"A7","kind":"argument_sequence","evidence":null,"note":"Переход от накопленного знания к последующим открытиям."},{"id":"R012","source":"CCE-2008-KIRBY","target":"I03","kind":"studies","evidence":"https://doi.org/10.1073/pnas.0707835105","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R013","source":"CCE-2008-CALDWELL","target":"I03","kind":"studies","evidence":"https://doi.org/10.1098/rstb.2008.0133","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R014","source":"CCE-2012-DEAN","target":"I03","kind":"studies","evidence":"https://doi.org/10.1126/science.1213969","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R015","source":"CCE-2017-SASAKI","target":"I03","kind":"studies","evidence":"https://doi.org/10.1038/ncomms15049","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R016","source":"CCE-2018-MESOUDI","target":"I03","kind":"studies","evidence":"https://doi.org/10.1098/rspb.2018.0712","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R017","source":"CCE-2024-BRIDGES","target":"I03","kind":"studies","evidence":"https://doi.org/10.1038/s41586-024-07126-4","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R018","source":"CCE-2024-LEEUWEN","target":"I03","kind":"studies","evidence":"https://doi.org/10.1038/s41562-024-01836-5","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R019","source":"CCE-2026-OHLINGER","target":"I03","kind":"studies","evidence":"https://doi.org/10.1016/j.tree.2026.03.003","note":"Сравнительное исследование темы; не означает, что Невзоров цитировал эту работу."},{"id":"R020","source":"CCE-2008-KIRBY","target":"F-CHAIN","kind":"supports_narrowly","evidence":"https://doi.org/10.1073/pnas.0707835105","note":"Структура языка изменялась в цепной передаче."},{"id":"R021","source":"CCE-2012-DEAN","target":"F-CHAIN","kind":"supports_narrowly","evidence":"https://doi.org/10.1126/science.1213969","note":"Успех сложного навыка связан с формами социального обучения в конкретной задаче."},{"id":"R022","source":"CCE-2008-CALDWELL","target":"F-CHAIN","kind":"provides_framework","evidence":"https://doi.org/10.1098/rstb.2008.0133","note":"Методологическое обсуждение эффекта храповика, не самостоятельный универсальный эксперимент."},{"id":"R023","source":"CCE-2017-SASAKI","target":"F-NOWRITE","kind":"supports_narrowly","evidence":"https://doi.org/10.1038/ncomms15049","note":"Сохранение и улучшение навигационного маршрута без письменности."},{"id":"R024","source":"CCE-2024-BRIDGES","target":"F-ANIMALS","kind":"supports_narrowly","evidence":"https://doi.org/10.1038/s41586-024-07126-4","note":"Обучение сложной двухшаговой задаче у шмелей."},{"id":"R025","source":"CCE-2024-LEEUWEN","target":"F-ANIMALS","kind":"supports_narrowly","evidence":"https://doi.org/10.1038/s41562-024-01836-5","note":"Социальное освоение сложного навыка шимпанзе, без обобщения до всей человеческой культуры."},{"id":"R026","source":"CCE-2018-MESOUDI","target":"F-SCIENCE","kind":"defines_criteria","evidence":"https://doi.org/10.1098/rspb.2018.0712","note":"Различение минимальных и расширенных критериев кумулятивной культуры."},{"id":"R027","source":"CCE-2026-OHLINGER","target":"F-SCIENCE","kind":"qualifies","evidence":"https://doi.org/10.1016/j.tree.2026.03.003","note":"Обзор подчёркивает неодинаковость механизмов и ограничения строгих тестов."},{"id":"R028","source":"F-CHAIN","target":"I03","kind":"refines","evidence":null,"note":"Разделение передачи и последующего улучшения."},{"id":"R029","source":"F-NOWRITE","target":"I03","kind":"limits_generalization","evidence":null,"note":"Не приписывать Невзорову отрицание устной передачи; ограничение относится к возможной сильной интерпретации."},{"id":"R030","source":"F-ANIMALS","target":"I03","kind":"limits_generalization","evidence":null,"note":"Социальное научение у животных не доказывает полный механизм человеческой науки."},{"id":"R031","source":"F-SCIENCE","target":"I03","kind":"raises_question","evidence":null,"note":"Открытый вопрос о механизмах проверяемого коллективного знания."}]}</script>
+<script>
+(function(){
+"use strict";
+var data=JSON.parse(document.getElementById("graph-json").textContent);
+var byId=new Map(data.nodes.map(function(n){return [n.id,n];}));
+var types=["claim","idea","study","finding"];
+var labels={claim:"ТЕЗИС КНИГИ",idea:"НАУЧНЫЙ ВОПРОС",study:"ПУБЛИКАЦИЯ",finding:"РЕЗУЛЬТАТ"};
+var state={selected:null,zoom:1};
+var svg=document.getElementById("network");
+var edgesLayer=document.getElementById("edge-layer"),nodesLayer=document.getElementById("node-layer");
+var search=document.getElementById("search"),edgeFilter=document.getElementById("edge-filter"),era=document.getElementById("era");
+var inspector=document.getElementById("inspector");
+var NS="http://www.w3.org/2000/svg";
+var positions={};
+var columns={claim:165,idea:495,study:840,finding:1220};
+var widths={claim:216,idea:216,study:238,finding:234};
+function el(tag,attrs){var x=document.createElementNS(NS,tag);Object.keys(attrs||{}).forEach(function(k){x.setAttribute(k,attrs[k]);});return x;}
+function html(tag,text,className){var x=document.createElement(tag);if(text!==undefined)x.textContent=text;if(className)x.className=className;return x;}
+function urlAllowed(link){return typeof link==="string"&&(link.startsWith("https://github.com/")||link.startsWith("https://doi.org/")||/^[a-z0-9./_-]+\.md$/.test(link));}
+function href(label,url){var a=html("a",label);if(urlAllowed(url)){a.href=url;a.target="_blank";a.rel="noopener noreferrer";}else{a.textContent=label+" (внутренний источник не опубликован)";}return a;}
+function layout(){types.forEach(function(type){var g=data.nodes.filter(function(n){return n.type===type;});g.forEach(function(n,i){positions[n.id]={x:columns[type],y:88+(g.length===1?440:i*810/(g.length-1)),w:widths[type],h:62};});});}
+function visible(){var enabled=new Set(Array.from(document.querySelectorAll("[data-type]")).filter(function(x){return x.checked;}).map(function(x){return x.getAttribute("data-type");}));
+var dateMode=era.value,words=search.value.trim().toLocaleLowerCase("ru");
+var pool=data.nodes.filter(function(n){if(!enabled.has(n.type))return false;if(n.type==="study"&&dateMode!=="all"){if(dateMode==="early"&&n.year>2013)return false;if(dateMode==="modern"&&n.year<2014)return false;if(dateMode==="latest"&&n.year<2024)return false;}return true;});
+if(!words)return pool;
+var hits=new Set(pool.filter(function(n){return [n.id,n.label,n.description,n.status].join(" ").toLocaleLowerCase("ru").includes(words);}).map(function(n){return n.id;}));
+var neighbor=new Set(hits);
+data.edges.forEach(function(e){if(hits.has(e.source))neighbor.add(e.target);if(hits.has(e.target))neighbor.add(e.source);});
+return pool.filter(function(n){return neighbor.has(n.id);});
+}
+function curve(a,b){var x1=a.x+a.w/2,x2=b.x-b.w/2;if(a.x>b.x){x1=a.x-a.w/2;x2=b.x+b.w/2;}var dir=x2>=x1?1:-1;var span=Math.max(52,Math.abs(x2-x1)*.45);return "M"+x1+","+a.y+" C"+(x1+dir*span)+","+a.y+" "+(x2-dir*span)+","+b.y+" "+x2+","+b.y;}
+function lines(str,max){var words=str.split(/\s+/),out=[""];words.forEach(function(w){var k=out.length-1,tryLine=(out[k]?out[k]+" ":"")+w;if(tryLine.length>max&&out[k]&&out.length<2){out.push(w);}else if(tryLine.length>max){out[k]=tryLine.slice(0,max-1)+"…";}else{out[k]=tryLine;}});return out.slice(0,2);}
+function render(){
+var show=visible(),set=new Set(show.map(function(n){return n.id;})),kind=edgeFilter.value;
+var egs=data.edges.filter(function(e){return set.has(e.source)&&set.has(e.target)&&(!kind||e.kind===kind);});
+edgesLayer.replaceChildren();nodesLayer.replaceChildren();
+var focus=state.selected,neighbor=new Set([focus]);
+if(focus)data.edges.forEach(function(e){if(e.source===focus)neighbor.add(e.target);if(e.target===focus)neighbor.add(e.source);});
+egs.forEach(function(e){var path=el("path",{d:curve(positions[e.source],positions[e.target]),class:"edge"+(focus?(e.source===focus||e.target===focus?" active":" off"):""),"marker-end":"url(#arrow)"});var tooltip=el("title");tooltip.textContent=e.kind+" · "+e.note;path.appendChild(tooltip);edgesLayer.appendChild(path);});
+show.forEach(function(n){
+var p=positions[n.id],isSelected=n.id===focus;
+var g=el("g",{class:"node "+n.type+(focus&&!neighbor.has(n.id)?" off":"")+(isSelected?" selected":""),role:"button",tabindex:"0","aria-label":n.id+" · "+n.label});
+g.appendChild(el("rect",{x:p.x-p.w/2,y:p.y-p.h/2,width:p.w,height:p.h}));
+var t=el("text",{x:p.x-p.w/2+12,y:p.y-12,class:"type"});t.textContent=n.id+" · "+labels[n.type];g.appendChild(t);
+var rows=lines(n.label,31);
+rows.forEach(function(line,i){var title=el("text",{x:p.x-p.w/2+12,y:p.y+5+i*15,class:"title"});title.textContent=line;g.appendChild(title);});
+var tt=el("title");tt.textContent=n.id+" — "+n.label;g.appendChild(tt);
+function choose(){state.selected=n.id;history.replaceState(null,"","#"+encodeURIComponent(n.id));render();details();}
+g.addEventListener("click",choose);g.addEventListener("keydown",function(evt){if(evt.key==="Enter"||evt.key===" "){evt.preventDefault();choose();}});
+nodesLayer.appendChild(g);
+});
+document.getElementById("visible-count").textContent=show.length+" из "+data.nodes.length+" узлов · "+egs.length+" из "+data.edges.length+" связей";
+}
+function details(){
+inspector.replaceChildren();inspector.appendChild(html("h2","Карточка источника"));
+var n=byId.get(state.selected);
+if(!n){inspector.appendChild(html("p","Выберите узел, чтобы увидеть исходную публикацию, уровень проверки и связи."));return;}
+inspector.appendChild(html("div",n.id+" · "+labels[n.type],"meta"));
+inspector.appendChild(html("h3",n.label));
+inspector.appendChild(html("p",n.description));
+inspector.appendChild(html("div","СТАТУС И УРОВЕНЬ ПРОВЕРКИ","meta"));
+inspector.appendChild(html("p",n.status));
+if(n.locator){inspector.appendChild(html("div","ЛОКАТОР В КНИГЕ","meta"));inspector.appendChild(html("p",n.locator));}
+if(n.year){inspector.appendChild(html("div","ГОД","meta"));inspector.appendChild(html("p",String(n.year)));}
+inspector.appendChild(href("Перейти к источнику / карточке",n.url));
+var related=data.edges.filter(function(e){return e.source===n.id||e.target===n.id;});
+inspector.appendChild(html("div","СВЯЗИ · "+related.length,"meta"));
+if(!related.length)inspector.appendChild(html("p","Связи пока не установлены."));
+related.forEach(function(e){
+var box=html("div",undefined,"rel"),incoming=e.target===n.id,other=byId.get(incoming?e.source:e.target);
+box.appendChild(html("div",(incoming?"← от ":"→ к ")+other.id+" · "+other.label,"direction"));
+box.appendChild(html("strong",e.kind));
+box.appendChild(html("div",e.note));
+box.appendChild(href("Доказательство",e.evidence));inspector.appendChild(box);
+});
+}
+function viewZoom(){var w=1480/state.zoom,h=960/state.zoom;svg.setAttribute("viewBox",[(1480-w)/2,(960-h)/2,w,h].join(" "));document.getElementById("reset-zoom").textContent="Масштаб "+Math.round(state.zoom*100)+"%";}
+Array.from(new Set(data.edges.map(function(e){return e.kind;}))).sort().forEach(function(k){var opt=html("option",k);opt.value=k;edgeFilter.appendChild(opt);});
+Array.from(document.querySelectorAll("[data-type]")).forEach(function(e){e.addEventListener("change",render);});
+search.addEventListener("input",render);edgeFilter.addEventListener("change",render);era.addEventListener("change",render);
+document.getElementById("clear").addEventListener("click",function(){search.value="";era.value="all";edgeFilter.value="";document.querySelectorAll("[data-type]").forEach(function(x){x.checked=true;});state.selected=null;history.replaceState(null,"",location.pathname);render();details();});
+document.getElementById("minus").addEventListener("click",function(){state.zoom=Math.max(.65,state.zoom/1.2);viewZoom();});
+document.getElementById("plus").addEventListener("click",function(){state.zoom=Math.min(2.4,state.zoom*1.2);viewZoom();});
+document.getElementById("reset-zoom").addEventListener("click",function(){state.zoom=1;viewZoom();});
+layout();var deep=decodeURIComponent(location.hash.replace(/^#/,""));if(byId.has(deep))state.selected=deep;
+document.getElementById("count-nodes").textContent=data.nodes.length;
+document.getElementById("count-edges").textContent=data.edges.length;
+render();details();viewZoom();
+})();
+</script>
+</body>
+</html>
